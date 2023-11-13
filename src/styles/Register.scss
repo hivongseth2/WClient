@@ -1,0 +1,72 @@
+
+
+.formReg{
+  margin-left: 25% !important;
+
+}
+.containerReg
+{
+    // box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    // background-color: rgba(17, 18, 19, 0.288);
+    align-items: center;
+    height: fit-content !important;
+    grid-template-columns: 40% 55%;
+    padding: 200px 0;
+    display: grid;
+    // background-image: url("../assets/images/bgLogin.jpg");
+    background-size: cover;
+
+
+    font-size: 22px;
+    .formReg
+    {
+
+
+        .item
+        {
+            // display: flex;
+  
+            // label
+            // {
+            //     margin: 2px;
+            //     display: block;
+            //     font-weight: 400;
+            //     color: rgb(21, 46, 78);
+            //     text-align:left;
+
+            // }
+            // input
+            // {
+            //     font-size: 18px;
+            //     width: 100%;
+            //     margin-bottom: 10px;
+            //    text-align: left; 
+                
+            // }
+          
+            .submitBtn
+            {
+               width:100%;
+               margin-top:30px;
+            }
+           
+
+           
+        }
+       
+    }
+    .imgReg
+    {
+        // display: inline-block;
+        // width:70%;
+
+      .img{
+    
+        object-fit: cover;
+
+      }
+    }
+
+   
+   
+}
