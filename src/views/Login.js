@@ -1,30 +1,27 @@
 import "../styles/Login.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CustomFetch } from "../utils/CustomFetch";
 import { toast } from "react-toastify";
 import logo from "../assets/images/logo.png";
 
 import axios from "axios";
-import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
+import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "../stores/AuthContext";
 
-import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
-import { useState, createContext, useContext } from "react";
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassWord] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const { setIsLoggedIn } = useAuth();
-
   const history = useHistory();
 
   const handleOnChangeInput = (e) => {
-    if (e.target.classList.contains("inputEmail")) {
-      setEmail(e.target.value);
+    if (e.target.name === "userName") {
+      setUserName(e.target.value);
     } else {
-      setPassWord(e.target.value);
+      setPassword(e.target.value);
     }
   };
 
@@ -32,41 +29,31 @@ const Login = () => {
     event.preventDefault();
 
     const formData = {
-      email: email,
-      passWordA: password,
+      userName: userName,
+      password: password,
     };
 
     try {
-      const response = axios.post(
-        "http://localhost:8521/api/v1/auth/login",
+      const response = await axios.post(
+        "http://localhost:8081/auth/login",
         formData
       );
 
-      const data = await response;
+      const data = response.data;
       console.log(data);
 
-      if (data.data) {
-        localStorage.setItem("data", JSON.stringify(data.data));
-        localStorage.setItem("token", JSON.stringify(data.data.token));
+      if (data) {
+        localStorage.setItem("data", JSON.stringify(data));
         toast.success(
-          `Chào mừng ${data.data.firstName} ${data.data.lastName} đã quay trở lại!`
+          `Chào mừng ${data.firstName} ${data.lastName} đã quay trở lại!`
         );
         setIsLoggedIn(true);
-
         history.push("/");
       }
-
-      console.log(data);
-      // if (data.errorCode !== undefined) {
-      //   toast.error(data.message);
-
-      //   return;
-
-      // }
     } catch (error) {
       console.log(error.message);
       setError(error.message);
-      toast.error(`sai tài khoản hoặc mật khẩu!`);
+      toast.error(`Sai tài khoản hoặc mật khẩu!`);
     }
   };
 
@@ -75,22 +62,20 @@ const Login = () => {
       <div className="col-12">
         <div className="containerLogo">
           <h2 style={{ display: "block" }}>Đăng nhập</h2>
-          <img className="logoLogin" src={logo}></img>
+          <img className="logoLogin" src={logo} alt="Logo"></img>
         </div>
 
         <div className="mb-3 p">
-          {/* <label className="lbInput">Email</label> */}
           <input
-            type="email"
-            className="form-control inputEmail "
-            placeholder="Nhập email"
-            name="email"
-            value={email}
+            type="text"
+            className="form-control inputUserName"
+            placeholder="Nhập tên đăng nhập"
+            name="userName"
+            value={userName}
             onChange={(e) => handleOnChangeInput(e)}
           />
         </div>
         <div className="mb-3 ">
-          {/* <label className="lbInput">Password</label> */}
           <input
             type="password"
             className="form-control inputPassword"
@@ -111,7 +96,6 @@ const Login = () => {
               className="form-check-label text-left"
               htmlFor="customCheck1"
             >
-              {/* <br /> */}
               Lưu tài khoản
             </label>
           </div>
@@ -125,18 +109,12 @@ const Login = () => {
             Đăng nhập
           </button>
         </div>
-        {/* <p className="forgot-password text-right">
-          <a href="#">Quên mật khẩu?</a>
-        </p> */}
-        <Link class="nav-item btn btn-primary col-12" to="/Register">
+        <Link className="nav-item btn btn-primary col-12" to="/Register">
           Đăng kí
         </Link>
       </div>
-
-      {/* <button class="nav-item btn btn-primary"> */}
-
-      {/* </button> */}
     </form>
   );
 };
+
 export default Login;
