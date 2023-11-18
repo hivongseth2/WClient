@@ -89,8 +89,8 @@ const Item = (props) => {
   useEffect(async () => {
     if (props) {
       {
-        props && props.children.imageProducts.length > 0
-          ? setImg(props.children.imageProducts[0].imageLink)
+        props && props.children.images.length > 0
+          ? setImg(props.children.images[0].imageLink)
           : setImg(
               "https://media.istockphoto.com/id/936182806/vi/vec-to/kh%C3%B4ng-c%C3%B3-d%E1%BA%A5u-hi%E1%BB%87u-h%C3%ACnh-%E1%BA%A3nh-kh%E1%BA%A3-d%E1%BB%A5ng.jpg?s=612x612&w=0&k=20&c=AqTYDe8XDlTT4HlkKmWrI57391QNOV0zZeC7u8TKYiE="
             );
@@ -123,14 +123,14 @@ const Item = (props) => {
             <img
               src={img}
               class="card-img-top"
-              alt={data.children ? data.children.productName : "Product Title"}
+              alt={data.children ? data.children.name : "Product Title"}
               onClick={() => handleView()}
             />
           </a>
 
           <div class="label-top shadow-sm">
             <a class="text-white" target="_blank" onClick={() => handleView()}>
-              {data.children ? data.children.productName : ""}
+              {data.children ? data.children.name : ""}
             </a>
           </div>
           <div class="card-body">
@@ -142,7 +142,7 @@ const Item = (props) => {
             </div>
             <h5 class="card-title">
               <a target="_blank" href="#">
-                {data.children ? data.children.productName : ""}
+                {data.children ? data.children.name : ""}
               </a>
             </h5>
 
