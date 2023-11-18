@@ -10,6 +10,7 @@ const IntroItem = (props) => {
   const [data, setData] = useState();
   const [status, setStatus] = useState(false);
   const [spec, setSpec] = useState([]);
+  console.log("spec", spec);
   // useEffect(() => {
   //   setValue(localStorage.getItem("content"));
   // }, []);
@@ -17,11 +18,12 @@ const IntroItem = (props) => {
   useEffect(async () => {
     if (props.data) {
       let res = await axios.get(
-        `http://localhost:8521/api/v1/products/getById/${props.data}`
+        // `http://localhost:8521/api/v1/products/getById/${props.data}`
+        `http://localhost:8081/product/get?productId=${props.data}`
       );
       setData(res.data);
-      setValue(res.data.description);
-      setSpec(res.data.specifications);
+      setValue(res.data.properties);
+      setSpec(res.data.properties);
       // console.log("intro : ", res);
     }
   }, []);
@@ -109,8 +111,8 @@ const IntroItem = (props) => {
               {spec.map((item, index) => (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
-                  <td>{item.specificationName}</td>
-                  <td>{item.specificationValue}</td>
+                  <td>{item.name}</td>
+                  <td>{item.value}</td>
                 </tr>
               ))}
             </tbody>

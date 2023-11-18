@@ -41,8 +41,8 @@ const Item = (props) => {
   const addCartItem = async () => {
     const userData = JSON.parse(localStorage.getItem("data"));
     const form = {
-      product: { id: data.children.id },
-      shoppingCart: { id: userData.shoppingCart.id },
+      product: { id: data.children.productId },
+      shoppingCart: { id: userData.shoppingCart.productId },
       quantity: 1,
     };
 
@@ -52,7 +52,7 @@ const Item = (props) => {
 
     // Fetch existing shopping cart data
     const existingCartResponse = await axios.get(
-      `http://localhost:8521/api/v1/shoppingCarts/getById/${userData.shoppingCart.id}`
+      `http://localhost:8521/api/v1/shoppingCarts/getById/${userData.shoppingCart.productId}`
     );
 
     if (
@@ -61,7 +61,7 @@ const Item = (props) => {
     ) {
       const existingProduct =
         existingCartResponse.data.shoppingCartDetails.find(
-          (item) => item.product.id === data.children.id
+          (item) => item.product.id === data.children.productId
         );
 
       if (existingProduct) {
@@ -69,9 +69,9 @@ const Item = (props) => {
         await axios.post(
           "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
           {
-            id: existingProduct.id,
-            product: { id: existingProduct.product.id },
-            shoppingCart: { id: existingProduct.shoppingCart.id },
+            id: existingProduct.productId,
+            product: { id: existingProduct.product.productId },
+            shoppingCart: { id: existingProduct.shoppingCart.productId },
             quantity: existingProduct.quantity + 1,
           }
         );
@@ -102,7 +102,7 @@ const Item = (props) => {
 
   const handleView = () => {
     const currentPath = window.location.pathname;
-    const newPath = `/Shopping/${data.children.id}`;
+    const newPath = `/Shopping/${data.children.productId}`;
 
     if (currentPath.match(/\/Shopping\/SP\d{4}/)) {
       const updatedPath = currentPath.replace(/\/Shopping\/SP\d{4}/, newPath);
@@ -123,14 +123,14 @@ const Item = (props) => {
             <img
               src={img}
               class="card-img-top"
-              alt={data.children ? data.children.productName : "Product Title"}
+              alt={data.children ? data.children.name : "Product Title"}
               onClick={() => handleView()}
             />
           </a>
 
           <div class="label-top shadow-sm">
             <a class="text-white" target="_blank" onClick={() => handleView()}>
-              {data.children ? data.children.productName : ""}
+              {data.children ? data.children.name : ""}
             </a>
           </div>
           <div class="card-body">
@@ -142,7 +142,7 @@ const Item = (props) => {
             </div>
             <h5 class="card-title">
               <a target="_blank" href="#">
-                {data.children ? data.children.productName : ""}
+                {data.children ? data.children.name : ""}
               </a>
             </h5>
 

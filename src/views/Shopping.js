@@ -44,9 +44,7 @@ const Shopping = () => {
       // Fetch data when searchValue is empty
       async function fetchData() {
         try {
-          let res = await axios.get(
-            "http://localhost:8521/api/v1/products/getAll"
-          );
+          let res = await axios.get("http://localhost:8081/product");
           let data = res && res.data ? res.data : [];
           setDataPhone(data);
         } catch (error) {
@@ -104,8 +102,8 @@ const Shopping = () => {
     // không rỗng thì lọc
     filteredProducts = dataPhone.filter((item) => {
       return (
-        selectedCategory.includes(String(item.category.id)) ||
-        selectedBrand.includes(String(item.brand.id))
+        selectedCategory.includes(String(item.category.categoryId)) ||
+        selectedBrand.includes(String(item.brand.brandId))
       );
     });
   }
