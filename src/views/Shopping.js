@@ -76,15 +76,11 @@ const Shopping = () => {
   useEffect(() => {
     async function fetchCategoryAndBrand() {
       try {
-        const resCate = await axios.get(
-          "http://localhost:8521/api/v1/category/getAll"
-        );
+        const resCate = await axios.get("http://localhost:8081/categories");
         const dataCate = resCate.data || [];
         setCategory(dataCate);
 
-        const resBrand = await axios.get(
-          "http://localhost:8521/api/v1/brands/getAllBrand"
-        );
+        const resBrand = await axios.get("http://localhost:8081/brand");
         const dataBrand = resBrand.data || [];
         setBrand(dataBrand);
       } catch (error) {
