@@ -9,7 +9,14 @@ import BtnCart from "./BtnCart";
 const Item = (props) => {
   const [data, setData] = useState(props);
   const [img, setImg] = useState();
+  console.log(data.children.images[0]);
+  console.log(data.children.productId);
+
   const history = useHistory();
+  // const url = "";
+  // const fectImg = () => {
+  //   fetch;
+  // };
 
   // useEffect lấy ảnh all
 
@@ -52,7 +59,8 @@ const Item = (props) => {
 
     // Fetch existing shopping cart data
     const existingCartResponse = await axios.get(
-      `http://localhost:8521/api/v1/shoppingCarts/getById/${userData.shoppingCart.productId}`
+      // `http://localhost:8521/api/v1/shoppingCarts/getById/${userData.shoppingCart.productId}`
+      `http://localhost:8081/product/get?productId=${props.data}`
     );
 
     if (
@@ -89,13 +97,12 @@ const Item = (props) => {
   useEffect(async () => {
     if (props) {
       {
-        props && props.children.images.length > 0
-          ? setImg(props.children.images[0].imageLink)
+        props && data.children.images.length > 0
+          ? setImg(data.children.images[0].id)
           : setImg(
               "https://media.istockphoto.com/id/936182806/vi/vec-to/kh%C3%B4ng-c%C3%B3-d%E1%BA%A5u-hi%E1%BB%87u-h%C3%ACnh-%E1%BA%A3nh-kh%E1%BA%A3-d%E1%BB%A5ng.jpg?s=612x612&w=0&k=20&c=AqTYDe8XDlTT4HlkKmWrI57391QNOV0zZeC7u8TKYiE="
             );
       }
-
       setData(props);
     }
   }, [props]);
