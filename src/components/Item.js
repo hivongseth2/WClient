@@ -9,7 +9,14 @@ import BtnCart from "./BtnCart";
 const Item = (props) => {
   const [data, setData] = useState(props);
   const [img, setImg] = useState();
+  console.log(data.children.images[0]);
+  console.log(data.children.productId);
+
   const history = useHistory();
+  // const url = "";
+  // const fectImg = () => {
+  //   fetch;
+  // };
 
   // useEffect lấy ảnh all
 
@@ -52,7 +59,8 @@ const Item = (props) => {
 
     // Fetch existing shopping cart data
     const existingCartResponse = await axios.get(
-      `http://localhost:8521/api/v1/shoppingCarts/getById/${userData.shoppingCart.productId}`
+      // `http://localhost:8521/api/v1/shoppingCarts/getById/${userData.shoppingCart.productId}`
+      `http://localhost:8081/product/get?productId=${props.data}`
     );
 
     if (

@@ -5,6 +5,7 @@ import axios from "axios";
 const DetailImg = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [listImg, setListImg] = useState([]);
+  console.log(listImg);
   const [activeImg, setActiveImg] = useState(
     "https://concrete.store/Content/images/not-available.jpg"
   );
@@ -14,12 +15,11 @@ const DetailImg = (props) => {
   useEffect(async () => {
     if (props.data) {
       let res = await axios.get(
-        `http://localhost:8521/api/v1/products/getById/${props.data}`
+        // `http://localhost:8521/api/v1/products/getById/${props.data}`
+        `http://localhost:8081/product/get?productId=${props.data}`
       );
-
-      setListImg(res.data.imageProducts);
-      setActiveImg(res.data.imageProducts[0].imageLink);
-
+      setListImg(res.data.images);
+      setActiveImg(res.data.images[0].id);
       //useEffect có ảnh hưởng tới active => bỏ tham số đi
     }
     // }, [activeImg]);
@@ -27,7 +27,6 @@ const DetailImg = (props) => {
   const handleActive = (index, event) => {
     setActiveIndex(index);
     setActiveImg(event.target.src);
-
     imageListRef.current.children[index].scrollIntoView({
       behavior: "smooth",
       block: "nearest",
@@ -88,7 +87,7 @@ const DetailImg = (props) => {
                     }`}
                     onClick={(event) => handleActive(index, event)}
                   >
-                    <img src={item.imageLink} alt="item" />
+                    <img src={item.id} alt="item" />
                   </li>
                 );
               })}
