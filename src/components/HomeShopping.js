@@ -28,7 +28,7 @@ const HomeShopping = () => {
     async function fetchData() {
       try {
         let res = await axios.get(
-          "http://localhost:8521/api/v1/products/getAll"
+          "http://localhost:8081/product"
         );
         let data = res && res.data ? res.data : [];
         setDataPhone(data);
