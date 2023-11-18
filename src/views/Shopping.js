@@ -98,8 +98,8 @@ const Shopping = () => {
     // không rỗng thì lọc
     filteredProducts = dataPhone.filter((item) => {
       return (
-        selectedCategory.includes(String(item.category.id)) ||
-        selectedBrand.includes(String(item.brand.id))
+        selectedCategory.includes(String(item.category.categoryId)) ||
+        selectedBrand.includes(String(item.brand.brandId))
       );
     });
   }

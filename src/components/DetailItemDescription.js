@@ -11,7 +11,8 @@ const DetailItemDescription = (props) => {
   useEffect(async () => {
     if (props.data) {
       let res = await axios.get(
-        `http://localhost:8521/api/v1/products/getById/${props.data}`
+        // `http://localhost:8521/api/v1/products/getById/${props.data}`
+        `http://localhost:8081/product/get?productId=${props.data}`
       );
       setDataDes(res);
       console.log(res);
@@ -20,19 +21,19 @@ const DetailItemDescription = (props) => {
   return (
     <div className="ContainerDes">
       <div className="title">
-        {dataDes && dataDes.data ? dataDes.data.productName : ""}
+        {dataDes && dataDes.data ? dataDes.productName : ""}
       </div>
 
       <div className="ContainerChild">
         <div className="brand">
           {`Thương hiệu: ${
-            dataDes && dataDes.data ? dataDes.data.brand.name : ""
+            dataDes && dataDes.data ? dataDes.data.brandName : ""
           }`}
         </div>
 
         <div className="cate">
           {`Loại thiết bị: ${
-            dataDes && dataDes.data ? dataDes.data.category.categoryName : ""
+            dataDes && dataDes.data ? dataDes.data.categoryName : ""
           }`}
         </div>
       </div>
@@ -42,13 +43,13 @@ const DetailItemDescription = (props) => {
           {`Số lượng: ${dataDes && dataDes.data ? dataDes.data.quantity : ""}`}
         </div>
         <div className="supplier">
-          {`nhà cung cấp: ${
-            dataDes && dataDes.data ? dataDes.data.supplier.name : ""
+          {`nhãn hàng: ${
+            dataDes && dataDes.data ? dataDes.data.brandName : ""
           }`}
         </div>
         <div className="creat">
           {`Ngày mở bán: ${
-            dataDes && dataDes.data ? FormatDate(dataDes.data.importDate) : ""
+            dataDes && dataDes.data ? FormatDate(dataDes.data.modelYear) : ""
           }`}
         </div>
       </div>

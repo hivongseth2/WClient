@@ -7,39 +7,22 @@ import { useHistory } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rPassword, setRPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [birthDay, setBirthDay] = useState("");
-  const [address, setAddress] = useState("");
-  const [sex, setSex] = useState(0);
-  const [phone, setPhone] = useState("");
+  const [userName, setUserName] = useState("");//
+  const [password, setPassword] = useState("");//
+  const [rPassword, setRPassword] = useState("");//
+  const [firstName, setFirstName] = useState("");//
+  const [lastName, setLastName] = useState("");//
+  const [city, setCity] = useState("");//
+  const [email, setEmail] = useState("");//
+  const [street, setStreet] = useState("");//
+  const [phone, setPhone] = useState("");//
   const history = useHistory();
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
-      case "lName":
-        setLastName(value);
-        break;
-      case "fName":
-        setFirstName(value);
-        break;
-      case "address":
-        setAddress(value);
-        break;
-      case "birthday":
-        setBirthDay(value);
-        break;
-      case "phone":
-        setPhone(value);
-        break;
-      case "email":
-        setEmail(value);
-        break;
-      case "sex":
-        setSex(value);
+      case "user":
+        setUserName(value);
         break;
       case "password":
         setPassword(value);
@@ -47,73 +30,60 @@ const Register = () => {
       case "rPassword":
         setRPassword(value);
         break;
+      case "fName":
+        setFirstName(value);
+        break;
+      case "lName":
+        setLastName(value);
+        break;
+      case "city":
+        setCity(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "street":
+        setStreet(value);
+        break;
+      case "phone":
+        setPhone(value);
+        break;
       default:
         break;
     }
-  };
+  }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-
     if (password !== rPassword) {
-      toast.error("Mật khẩu và xác nhận mật khẩu không giống nhau.");
-      return;
+      toast.error("Mật khẩu không trùng khớp");
+    } else {
+      const user = {
+        userName: phone,
+        passWord: password,
+        firstName: firstName,
+        lastName: lastName,
+        city: city,
+        email: email, 
+        street: street,
+        phone: phone, 
+        roleId: 1,
+        status: 1
+      };
+      axios
+        .post("http://localhost:8081/customer/add", user)
+        .then((response) => {
+          toast.success("Đăng ký thành công");
+        })
+        .catch((error) => {
+          toast.error("Đăng ký thất bại");
+        });
     }
+  }
 
-    var idTemp = await axios.get(
-      "http://localhost:8521/api/v1/customer/randomId"
-    );
-    console.log(idTemp);
-
-    axios
-      .post("http://localhost:8521/api/v1/auth/register", {
-        email: email,
-        passWordA: password,
-        enable: true,
-        roles: [{ id: 1 }],
-      })
-      .then((response) => {
-        const account = { id: response.data.id };
-        const customerData = {
-          id: idTemp.data,
-          firstName,
-          lastName,
-          email,
-          dateOfBirth: birthDay,
-          sex: parseInt(sex),
-          phone,
-          address,
-          account,
-          customerType: "customer",
-          avatar: null,
-        };
-
-        console.log(customerData);
-        axios
-          .post(
-            "http://localhost:8521/api/v1/customer/createOrUpdate",
-            customerData
-          )
-          .then((response) => {
-            // Xử lý khi tạo khách hàng thành công
-            console.log("Khách hàng đã được tạo:", response.data);
-            toast.success(`Chúc mừng bạn đã đăng ký thành công!`);
-            history.push("/login");
-          })
-          .catch((error) => {
-            // Xử lý khi có lỗi xảy ra
-
-            toast.error(response.data || "Đã có lỗi xảy ra.");
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("Đã có lỗi xảy ra.");
-      });
-  };
 
   return (
-    <div className=" justify-content-center col-8">
+    <div className=" justify-content-center col-8"> 
       <form className="formReg col-12 mb-3  fs-8s pb-xl-5 ">
         <div className="row">
           <div className="containerLogo">
@@ -162,17 +132,34 @@ const Register = () => {
         </div>
 
         <div className="row">
-          <div className="col-12 mb-3">
+          <div className="col-6 mb-3">
             <div className="item">
               {/* <label htmlFor="address" className="lbInput">
                 Địa chỉ:
               </label> */}
               <input
                 type="text"
-                id="address"
-                placeholder="Nhập địa chỉ"
-                name="address"
-                value={address}
+                id="city"
+                placeholder="Nhập thành phô"
+                name="city"
+                value={city}
+                className="form-control"
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="col-6 mb-3">
+            <div className="item">
+              {/* <label htmlFor="address" className="lbInput">
+                Địa chỉ:
+              </label> */}
+              <input
+                type="text"
+                id="street"
+                placeholder="Nhập tên đường"
+                name="street"
+                value={street}
                 className="form-control"
                 onChange={handleChange}
                 required
@@ -182,23 +169,7 @@ const Register = () => {
         </div>
 
         <div className="row">
-          <div className="col-6 mb-3">
-            <div className="item">
-              {/* <label htmlFor="email" className="lbInput">
-                Email:
-              </label> */}
-              <input
-                type="text"
-                id="email"
-                name="email"
-                placeholder="Nhập địa chỉ Email"
-                value={email}
-                className="form-control"
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
+
 
           <div className="col-6 mb-3">
             <div className="item">
@@ -217,52 +188,21 @@ const Register = () => {
               />
             </div>
           </div>
-        </div>
-        <div className="row">
           <div className="col-6 mb-3">
             <div className="item">
-              <label htmlFor="birthday" className="lbInput">
-                Ngày sinh:
-              </label>
+              {/* <label htmlFor="user" className="lbInput">
+                user:
+              </label> */}
               <input
-                type="date"
-                id="birthday"
-                name="birthday"
-                value={birthDay}
+                type="text"
+                id="user"
+                name="user"
+                placeholder="Nhập username"
+                value={phone}
                 className="form-control"
                 onChange={handleChange}
                 required
               />
-            </div>
-          </div>
-
-          <div className="col-6 mb-3">
-            <label className="lbInput">Giới tính:</label>
-
-            <div className="item row">
-              <div className="col-6 mb-3 ">
-                <input
-                  type="radio"
-                  id="female"
-                  name="sex"
-                  value="0"
-                  checked={sex === "0"}
-                  onChange={handleChange}
-                />
-                <label htmlFor="female">Nữ</label>
-              </div>
-
-              <div className="col-6 mb-3">
-                <input
-                  type="radio"
-                  id="male"
-                  name="sex"
-                  value="1"
-                  checked={sex === "1"}
-                  onChange={handleChange}
-                />
-                <label htmlFor="male">Nam</label>
-              </div>
             </div>
           </div>
         </div>
@@ -298,6 +238,27 @@ const Register = () => {
                 name="rPassword"
                 placeholder="Nhập lại mật khẩu"
                 value={rPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div />
+        </div>
+        <div className="row">
+          {" "}
+          <div className="col-6 mb-3">
+            <div className="item">
+              {/* <label htmlFor="password" className="lbInput">
+                Password:
+              </label> */}
+              <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Nhập email"
+                value={email  }
+                className="form-control"
                 onChange={handleChange}
                 required
               />

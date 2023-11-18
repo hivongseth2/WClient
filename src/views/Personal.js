@@ -20,8 +20,8 @@ const Personal = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [birthDay, setBirthDay] = useState("");
-  const [address, setAddress] = useState("");
+  const [city, setcity] = useState("");
+  const [street, setstreet] = useState("");
   const [sex, setSex] = useState(0);
   const [phone, setPhone] = useState("");
   const [id, setId] = useState("");
@@ -47,11 +47,11 @@ const Personal = () => {
       case "fName":
         setFirstName(value);
         break;
-      case "address":
-        setAddress(value);
+      case "street":
+        setstreet(value);
         break;
-      case "birthday":
-        setBirthDay(value);
+      case "city":
+        setcity(value);
         break;
       case "phone":
         setPhone(value);
@@ -77,10 +77,10 @@ const Personal = () => {
       firstName,
       lastName,
       email,
-      dateOfBirth: birthDay,
+      dateOfBirth: city,
       sex: parseInt(sex),
       phone,
-      address,
+      street,
       account,
       customerType: "customer",
       avatar: null,
@@ -118,16 +118,15 @@ const Personal = () => {
       setEmail(temp.email || "");
       setFirstName(temp.firstName || "");
       setLastName(temp.lastName || "");
-      setBirthDay(FormatDate2Input(temp.dateOfBirth) || "");
-
-      setAddress(temp.address || "");
+      setcity(temp.city || "");
+      setstreet(temp.street || "");
       setSex(String(temp.sex) || "0");
       console.log(temp.sex);
       setPhone(temp.phone || "");
       setAccount(temp.account);
       setId(temp.id);
     }
-    console.log(birthDay);
+    console.log(city);
   }, [flag]);
   //   ========
   return (
@@ -178,14 +177,14 @@ const Personal = () => {
           <div className="row">
             <div className="col-12">
               <div className="item">
-                <label htmlFor="address" className="lbInput">
+                <label htmlFor="street" className="lbInput">
                   Địa chỉ:
                 </label>
                 <input
                   type="text"
-                  id="address"
-                  name="address"
-                  value={address}
+                  id="street"
+                  name="street"
+                  value={street}
                   className="form-control"
                   onChange={handleChange}
                   required
@@ -232,14 +231,14 @@ const Personal = () => {
           <div className="row">
             <div className="col-6">
               <div className="item">
-                <label htmlFor="birthday" className="lbInput">
-                  Ngày sinh:
+                <label htmlFor="city" className="lbInput">
+                 Thành phố:
                 </label>
                 <input
-                  type="date"
-                  id="birthday"
-                  name="birthday"
-                  value={birthDay}
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={city}
                   className="form-control"
                   onChange={handleChange}
                   required
