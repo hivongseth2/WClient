@@ -47,50 +47,19 @@ const Item = (props) => {
 
   const addCartItem = async () => {
     const userData = JSON.parse(localStorage.getItem("data"));
+    console.log("cục này là data", data);
+
+    console.log("userDTA DÒNG 50 NÈ ", userData);
     const form = {
-      product: { id: data.children.productId },
-      shoppingCart: { id: userData.shoppingCart.productId },
+      customerId: userData.personId,
       quantity: 1,
+
+      productId: data.children.productId,
     };
 
-    if (userData && userData.token) {
-      delete userData.token;
-    }
-
     // Fetch existing shopping cart data
-    const existingCartResponse = await axios.get(
-      // `http://localhost:8521/api/v1/shoppingCarts/getById/${userData.shoppingCart.productId}`
-      `http://localhost:8081/product/get?productId=${props.data}`
-    );
 
-    if (
-      existingCartResponse.data &&
-      existingCartResponse.data.shoppingCartDetails
-    ) {
-      const existingProduct =
-        existingCartResponse.data.shoppingCartDetails.find(
-          (item) => item.product.id === data.children.productId
-        );
-
-      if (existingProduct) {
-        // Product already in cart, increase quantity
-        await axios.post(
-          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-          {
-            id: existingProduct.productId,
-            product: { id: existingProduct.product.productId },
-            shoppingCart: { id: existingProduct.shoppingCart.productId },
-            quantity: existingProduct.quantity + 1,
-          }
-        );
-      } else {
-        // Product not in cart, add it
-        await axios.post(
-          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-          form
-        );
-      }
-    }
+    await axios.put("http://localhost:8081/cart/updateCartItem", form);
   };
 
   // =============

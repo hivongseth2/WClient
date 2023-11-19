@@ -36,17 +36,17 @@ const Filter = ({ category, brand, setSelectedCategory, setSelectedBrand }) => {
           {brand &&
             brand.length > 0 &&
             brand.map((item) => (
-              <div className="form-check" key={item.id}>
+              <div className="form-check" key={item.brandId}>
                 <input
                   className="form-check-input"
                   type="checkbox"
                   onChange={handleBrandChange}
                   value=""
-                  id={`categoryCheckbox-${item.id}`}
+                  id={`categoryCheckbox-${item.brandId}`}
                 />
                 <label
                   className="form-check-label"
-                  htmlFor={`categoryCheckbox-${item.id}`}
+                  htmlFor={`categoryCheckbox-${item.brandId}`}
                 >
                   {item.name}
                 </label>
@@ -63,19 +63,19 @@ const Filter = ({ category, brand, setSelectedCategory, setSelectedBrand }) => {
           {category &&
             category.length > 0 &&
             category.map((item) => (
-              <div className="form-check" key={item.id}>
+              <div className="form-check" key={item.categoryId}>
                 <input
                   className="form-check-input"
                   type="checkbox"
                   onChange={handleCategoryChange}
                   value=""
-                  id={`categoryCheckbox-${item.id}`}
+                  id={`categoryCheckbox-${item.categoryId}`}
                 />
                 <label
                   className="form-check-label"
-                  htmlFor={`categoryCheckbox-${item.id}`}
+                  htmlFor={`categoryCheckbox-${item.categoryId}`}
                 >
-                  {item.categoryName}
+                  {item.name}
                 </label>
               </div>
             ))}
