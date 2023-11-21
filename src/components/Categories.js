@@ -23,26 +23,96 @@ const Categories = () => {
       className="container-fluid shadow-sm p-3 mb-5 rounded"
       style={{ backgroundColor: "white" }}
     >
-      <div className="row mt-2 g-4">
-        {categories.map((category) => (
-          <div className="col-md-3" key={category.categoryId}>
-            <div className="cardcate p-1">
-              <div className="d-flex justify-content-between align-items-center p-2">
-                <div className="flex-column lh-1 imagename">
-                  <span>{category.name}</span>
-                </div>
-                <div>
-                  <img
-                    src={category.image}
-                    height="200"
-                    width="200"
-                    alt={category.name}
-                  />
-                </div>
-              </div>
+      <div class="row mt-2 g-4">
+        <div class="col-md-3">
+          <div class="cardcate p-1 d-flex justify-content-center align-items-center">
+            <div>
+              <img
+                src="https://giangduydat.vn/images/cat/logo-canon.jpg"
+                height="200"
+                width="200"
+              />
             </div>
           </div>
-        ))}
+        </div>
+
+        <div class="col-md-3">
+          <div class="cardcate p-1 d-flex justify-content-center align-items-center">
+            <div>
+              <img
+                src="https://giangduydat.vn/images/cat/logo-nikon.jpg"
+                height="200"
+                width="200"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cardcate p-1 d-flex justify-content-center align-items-center">
+            <div>
+              <img
+                src="https://giangduydat.vn/images/cat/logo-sony.jpg"
+                height="200"
+                width="200"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cardcate p-1 d-flex justify-content-center align-items-center">
+            <div>
+              <img
+                src="https://giangduydat.vn/images/cat/logo-lumix.jpg"
+                height="200"
+                width="200"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cardcate p-1 d-flex justify-content-center align-items-center">
+            <div>
+              <img
+                src="https://giangduydat.vn/images/cat/logo-pentax.jpg"
+                height="200"
+                width="200"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cardcate p-1 d-flex justify-content-center align-items-center">
+            <div>
+              <img
+                src="https://logos-world.net/wp-content/uploads/2023/03/Olympus-Logo.png"
+                height="200"
+                width="200"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cardcate p-1 d-flex justify-content-center align-items-center">
+            <div>
+              <img
+                src="https://brandlogos.net/wp-content/uploads/2013/05/ricoh-eps-vector-logo.png"
+                height="200"
+                width="200"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="cardcate p-1 d-flex justify-content-center align-items-center">
+            <div>
+              <img
+                src="https://logowik.com/content/uploads/images/pentax2262.jpg"
+                height="200"
+                width="200"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
