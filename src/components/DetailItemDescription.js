@@ -29,13 +29,17 @@ const DetailItemDescription = (props) => {
         <div className="brand">
           <span className="color">Thương hiệu:</span>
 
-          {` ${dataDes && dataDes.data ? dataDes.data.brandName : ""}`}
+          <div>
+            {` ${dataDes && dataDes.data ? dataDes.data.brandName : ""}`}
+          </div>
         </div>
 
         <div className="cate">
           <span className="color">Loại thiết bị:</span>
 
-          {` ${dataDes && dataDes.data ? dataDes.data.categoryName : ""}`}
+          <div>
+            {` ${dataDes && dataDes.data ? dataDes.data.categoryName : ""}`}
+          </div>
         </div>
       </div>
       {/* =============================== */}
@@ -75,35 +79,43 @@ const DetailItemDescription = (props) => {
         {dataDes && dataDes.data ? dataDes.data.price + "\tVND" : ""}
       </div>
 
-      {/* <div className="promotionContainer">
-        <div className="promotionTitle">KHUYẾN MÃI KHI MUA NGAY:</div>
-        <div className="promoChild">
-          <img className="giftImg" src={gift}></img>
-          <div className="giftContent">
-            1x Giảm thêm 150.000 cho một số chuột Logitech, MSI, Newmen, tai
-            nghe Zidli, Lg
-          </div>
+      <div></div>
+
+      <div className="bonus">
+        <div>
+          <img
+            src="https://htauto.com.vn/wp-content/uploads/2020/11/img_507427-376x400.png"
+            width={30}
+            height={30}
+            style={{ marginRight: 20 }}
+          ></img>
+          <span>
+            Để được tư vấn sản phẩm vui lòng liên hệ Hotline: 18001503 hoặc Chat
+          </span>
+          <hr></hr>
         </div>
-        <div className="promoChild">
-          <img className="giftImg" src={gift}></img>
-          <div className="giftContent">
-            1x Giảm thêm 5% tối đa 300.000đ cho toàn bộ sản phẩm Điện Máy - Điện
-            Gia Dụng
-          </div>
+        <div>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2769/2769339.png"
+            width={30}
+            height={30}
+            style={{ marginRight: 20 }}
+          ></img>
+          <span>Giao hàng miễn phí trong vòng 3-7 ngày</span>
+          <hr></hr>
         </div>
-        <div className="promoChild">
-          <img className="giftImg" src={gift}></img>
-          <div className="giftContent">
-            1x Balo laptop Targus 15.6 TSB883 Black (Safire) (Quà tặng )
-          </div>
+
+        <div>
+          <img
+            src="https://static.thenounproject.com/png/1703016-200.png"
+            width={30}
+            height={30}
+            style={{ marginRight: 20 }}
+          ></img>
+          <span>Đổi trả miễn phí trong vòng 15 ngày</span>
         </div>
-        <div className="promoChild">
-          <img className="giftImg" src={gift}></img>
-          <div className="giftContent">
-            1x Sim Viettel 365 ngày không giới hạn dữ liệu di động (Quà tặng )
-          </div>
-        </div>
-      </div> */}
+        <hr></hr>
+      </div>
       <div className="button-container">
         <button className="btnAdd">Thêm vào giỏ hàng</button>
       </div>
