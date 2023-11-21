@@ -74,7 +74,8 @@
     max-height: 250px;
     object-fit: contain;
     padding: 30px;
-    background-color: #fae0c7;
+    background-color: #ffffff;
+    
 }
 
 .card h2 {
@@ -222,3 +223,58 @@
 .fa-chevron-circle-right:before {
     color: darkgray;
 }
+
+.hightlight{
+    color: rgb(0, 37, 12);
+
+    font-size: 18px;
+    font-weight: 500;
+
+}
+
+
+.btn {
+    border: none;
+    width: 10em;
+    height: 3em;
+    border-radius: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background: #1C1A1C;
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
+  }
+  
+  .sparkle {
+    fill: #AAAAAA;
+    transition: all 200ms ease;
+    margin-top: 8px;
+    width: 30px;
+    height :30px
+  }
+  
+  .text {
+    font-weight: 600;
+    color: #AAAAAA;
+    font-size: medium;
+  }
+  
+  .btn:hover {
+    background: linear-gradient(0deg,#40cc5f,#035e03);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+    inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+    0px 0px 0px 4px rgba(255, 255, 255, 0.2),
+    0px 0px 180px 0px #54ec35;
+    transform: translateY(-2px);
+  }
+  
+  .btn:hover .text {
+    color: white;
+  }
+  
+  .btn:hover .sparkle {
+    fill: white;
+    transform: scale(1.2);
+  } 
