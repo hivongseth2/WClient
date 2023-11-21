@@ -62,7 +62,11 @@ const DetailImg = (props) => {
   return (
     <div className="detailItemContainer">
       <div className="detailImg">
-        <img src={activeImg} alt="item" />
+        <div class="cards">
+          <figure class="card">
+            <img src={activeImg} alt="item" class="card_title" />
+          </figure>
+        </div>
         <div className="divChild">
           <button className="btnNext" onClick={() => nextBtn()}>
             &#10095;

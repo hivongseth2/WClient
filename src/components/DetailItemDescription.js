@@ -7,6 +7,7 @@ import gift from "../assets/images/gift-filled.png";
 
 const DetailItemDescription = (props) => {
   const [dataDes, setDataDes] = useState();
+  console.log(dataDes);
 
   useEffect(async () => {
     if (props.data) {
@@ -21,34 +22,36 @@ const DetailItemDescription = (props) => {
   return (
     <div className="ContainerDes">
       <div className="title">
-        {dataDes && dataDes.data ? dataDes.productName : ""}
+        {dataDes && dataDes.data ? dataDes.data.name : ""}
       </div>
 
       <div className="ContainerChild">
         <div className="brand">
-          {`Thương hiệu: ${
-            dataDes && dataDes.data ? dataDes.data.brandName : ""
-          }`}
+          <span className="color">Thương hiệu:</span>
+
+          {` ${dataDes && dataDes.data ? dataDes.data.brandName : ""}`}
         </div>
 
         <div className="cate">
-          {`Loại thiết bị: ${
-            dataDes && dataDes.data ? dataDes.data.categoryName : ""
-          }`}
+          <span className="color">Loại thiết bị:</span>
+
+          {` ${dataDes && dataDes.data ? dataDes.data.categoryName : ""}`}
         </div>
       </div>
       {/* =============================== */}
       <div className="ContainerChild">
         <div className="stock">
-          {`Số lượng: ${dataDes && dataDes.data ? dataDes.data.quantity : ""}`}
+          <span className="color">Số lượng:</span>
+          {` ${dataDes && dataDes.data ? dataDes.data.quantity : ""}`}
         </div>
         <div className="supplier">
-          {`nhãn hàng: ${
-            dataDes && dataDes.data ? dataDes.data.brandName : ""
-          }`}
+          <span className="color">Nhãn hàng:</span>
+          {` ${dataDes && dataDes.data ? dataDes.data.brandName : ""}`}
         </div>
         <div className="creat">
-          {`Ngày mở bán: ${
+          <span className="color">Nhãn hàng:</span>
+
+          {`${
             dataDes && dataDes.data ? FormatDate(dataDes.data.modelYear) : ""
           }`}
         </div>
@@ -72,7 +75,7 @@ const DetailItemDescription = (props) => {
         {dataDes && dataDes.data ? dataDes.data.price + "\tVND" : ""}
       </div>
 
-      <div className="promotionContainer">
+      {/* <div className="promotionContainer">
         <div className="promotionTitle">KHUYẾN MÃI KHI MUA NGAY:</div>
         <div className="promoChild">
           <img className="giftImg" src={gift}></img>
@@ -100,9 +103,8 @@ const DetailItemDescription = (props) => {
             1x Sim Viettel 365 ngày không giới hạn dữ liệu di động (Quà tặng )
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="button-container">
-        <button className="btnBuy">Mua ngay</button>
         <button className="btnAdd">Thêm vào giỏ hàng</button>
       </div>
     </div>
