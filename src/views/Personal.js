@@ -246,35 +246,6 @@ const Personal = () => {
               </div>
             </div>
 
-            <div className="col-6">
-              <label className="lbInput">Giới tính:</label>
-
-              <div className="item row">
-                <div className="col-6 ">
-                  <input
-                    type="radio"
-                    id="female"
-                    name="sex"
-                    value="0"
-                    checked={sex === "0"}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="female">Nữ</label>
-                </div>
-
-                <div className="col-6">
-                  <input
-                    type="radio"
-                    id="male"
-                    name="sex"
-                    value="1"
-                    checked={sex === "1"}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="male">Nam</label>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div className="row">

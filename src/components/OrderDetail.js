@@ -18,7 +18,16 @@ const OrderDetail = ({}) => {
     console.log(order.status);
   }, []);
   console.log(order);
-
+  function getStatusText(orderId) {
+    switch (orderId) {
+      case "1":
+        return "Đang xử lý";
+      case "2":
+        return "Đang được vận chuyển";
+      default:
+        return "Trạng thái không xác định";
+    }
+  }
 
 
   return (
@@ -58,23 +67,23 @@ const OrderDetail = ({}) => {
       <div key={order.orderId} className="order-item">
         <div className="headerOrder">
           <div className="h-container">
-            <span style={{ marginLeft: "2em", color: "#9DB2BF" }}>
+            <span style={{ marginLeft: "2em", color: "#fff" }}>
               Ngày tạo đơn:{" "}
-              <span style={{ color: "#9DB2BF" }}>
+              <span style={{ color: "#fff" }}>
                 {new Date(order.orderDate).toLocaleDateString()}
               </span>
             </span>
-            <span style={{ color: "#F0F0F0" }}>
-              Trạng thái: null
+            <span style={{ color: "#fff" }}>
+            Trạng thái: {getStatusText(order.status)}
             </span>
           </div>
           <div className="h-container">
-            <span style={{ color: "#DDE6ED", marginLeft: "2em" }}>
+            <span style={{ color: "#fff", marginLeft: "2em" }}>
               Mã đơn hàng
               {" "}
               {order.orderId}
             </span>
-            <span style={{ color: "#9DB2BF" }}>Thanh toán khi nhận hàng</span>
+            <span style={{ color: "#fff" }}>Thanh toán khi nhận hàng</span>
           </div>
         </div>
         {order.orderDetails.map((orderDetail) => (
