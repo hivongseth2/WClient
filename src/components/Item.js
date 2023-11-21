@@ -145,7 +145,7 @@ const Item = (props) => {
                     add to cart
                   </button> */}
 
-                  <button class="btn">
+                  <button class="btn" onClick={() => addCartItem()}>
                     <svg
                       height="24"
                       width="24"
