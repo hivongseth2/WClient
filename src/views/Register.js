@@ -7,15 +7,15 @@ import { useHistory } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 
 const Register = () => {
-  const [userName, setUserName] = useState("");//
-  const [password, setPassword] = useState("");//
-  const [rPassword, setRPassword] = useState("");//
-  const [firstName, setFirstName] = useState("");//
-  const [lastName, setLastName] = useState("");//
-  const [city, setCity] = useState("");//
-  const [email, setEmail] = useState("");//
-  const [street, setStreet] = useState("");//
-  const [phone, setPhone] = useState("");//
+  const [userName, setUserName] = useState(""); //
+  const [password, setPassword] = useState(""); //
+  const [rPassword, setRPassword] = useState(""); //
+  const [firstName, setFirstName] = useState(""); //
+  const [lastName, setLastName] = useState(""); //
+  const [city, setCity] = useState(""); //
+  const [email, setEmail] = useState(""); //
+  const [street, setStreet] = useState(""); //
+  const [phone, setPhone] = useState(""); //
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -51,7 +51,7 @@ const Register = () => {
       default:
         break;
     }
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -64,11 +64,11 @@ const Register = () => {
         firstName: firstName,
         lastName: lastName,
         city: city,
-        email: email, 
+        email: email,
         street: street,
-        phone: phone, 
+        phone: phone,
         roleId: 1,
-        status: 1
+        status: 1,
       };
       axios
         .post("http://localhost:8081/customer/add", user)
@@ -79,18 +79,17 @@ const Register = () => {
           toast.error("Đăng ký thất bại");
         });
     }
-  }
-
+  };
 
   return (
-    <div className=" justify-content-center col-8"> 
+    <div className=" justify-content-center col-8">
       <form className="formReg col-12 mb-3  fs-8s pb-xl-5 ">
         <div className="row">
           <div className="containerLogo">
             <h2 style={{ display: "block", marginTop: "2em" }}>
               ĐĂNG KÝ TÀI KHOẢN
             </h2>
-            <img className="logoLogin" src={logo}></img>
+            {/* <img className="logoLogin" src={logo}></img> */}
           </div>
         </div>
         <div className="row">
@@ -169,8 +168,6 @@ const Register = () => {
         </div>
 
         <div className="row">
-
-
           <div className="col-6 mb-3">
             <div className="item">
               {/* <label htmlFor="phone" className="lbInput">
@@ -257,7 +254,7 @@ const Register = () => {
                 id="email"
                 name="email"
                 placeholder="Nhập email"
-                value={email  }
+                value={email}
                 className="form-control"
                 onChange={handleChange}
                 required

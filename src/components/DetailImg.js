@@ -63,7 +63,7 @@ const DetailImg = (props) => {
     <div className="detailItemContainer">
       <div className="detailImg">
         <div class="cards">
-          <figure class="card">
+          <figure class="card" style={{ boxShadow: "none" }}>
             <img src={activeImg} alt="item" class="card_title" />
           </figure>
         </div>
