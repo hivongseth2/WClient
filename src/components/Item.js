@@ -9,8 +9,6 @@ import BtnCart from "./BtnCart";
 const Item = (props) => {
   const [data, setData] = useState(props);
   const [img, setImg] = useState();
-  console.log(data.children.images[0]);
-  console.log(data.children.productId);
 
   const history = useHistory();
   // const url = "";
@@ -47,17 +45,13 @@ const Item = (props) => {
 
   const addCartItem = async () => {
     const userData = JSON.parse(localStorage.getItem("data"));
-    console.log("cục này là data", data);
 
-    console.log("userDTA DÒNG 50 NÈ ", userData);
     const form = {
       customerId: userData.personId,
       quantity: 1,
 
       productId: data.children.productId,
     };
-
-    // Fetch existing shopping cart data
 
     await axios.put("http://localhost:8081/cart/updateCartItem", form);
   };

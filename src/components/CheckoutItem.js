@@ -10,24 +10,23 @@ const CheckoutItem = (props) => {
       {console.log(props)}
       <th scope="row">{props.index}</th>
       <td>
-        {" "}
-        <b>{props.data.product.productName}</b>
-        <p>{props.data.product.price} VND</p>
+        <b>{props.data.productName}</b>
+        <p>{props.data.price} VND</p>
       </td>
       <td>
         {
           <img
             style={{ height: "100%" }}
             src={
-              props.data.product.imageProducts.length > 0
-                ? props.data.product.imageProducts[0].imageLink
+              props.data.productImages.length > 0
+                ? props.data.productImages[0]
                 : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-32.png"
             }
           ></img>
         }
       </td>
       <td>{props.data.quantity}</td>
-      <td>{props.data.quantity * props.data.product.price}</td>
+      <td>{props.data.quantity * props.data.price}</td>
     </tr>
   );
 };

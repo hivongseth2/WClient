@@ -4,24 +4,26 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const CartItem = (props) => {
+  const datatemp = localStorage.getItem("data");
+
   const { item, token, setCart, updateCart, selected, onSelect } = props;
   const [quantity, setQuantity] = useState(item.quantity);
-  const [price, setPrice] = useState(item.quantity * item.product.price);
+  const [price, setPrice] = useState(item.quantity * item.price);
 
   const handleQuantityItemPlus = async () => {
+    const userData = JSON.parse(localStorage.getItem("data"));
+    const form = {
+      customerId: userData.personId,
+      quantity: 1,
+      productId: props.item.productId,
+    };
+
     try {
-      const response = await axios.post(
-        "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-        {
-          id: item.id,
-          product: { id: item.product.id },
-          shoppingCart: { id: item.shoppingCart.id },
-          quantity: quantity + 1,
-        }
-      );
+      await axios.put("http://localhost:8081/cart/updateCartItem", form);
+      props.updateCart();
 
       setQuantity(quantity + 1);
-      setPrice((quantity + 1) * item.product.price);
+      setPrice((quantity + 1) * props.item.price);
       props.updateCart();
       toast.success("Cập nhật sản phẩm thành công");
     } catch (error) {
@@ -45,19 +47,19 @@ const CartItem = (props) => {
         toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
       }
     } else {
+      const userData = JSON.parse(localStorage.getItem("data"));
+      const form = {
+        customerId: userData.personId,
+        quantity: -1,
+        productId: props.item.productId,
+      };
+
       try {
-        const response = await axios.post(
-          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-          {
-            id: item.id,
-            product: { id: item.product.id },
-            shoppingCart: { id: item.shoppingCart.id },
-            quantity: quantity - 1,
-          }
-        );
+        await axios.put("http://localhost:8081/cart/updateCartItem", form);
+        props.updateCart();
 
         setQuantity(quantity - 1);
-        setPrice((quantity - 1) * item.product.price);
+        setPrice((quantity - 1) * props.item.price);
         props.updateCart();
         toast.success("Cập nhật sản phẩm thành công");
       } catch (error) {
@@ -75,8 +77,8 @@ const CartItem = (props) => {
       <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
         <img
           src={
-            item.product.imageProducts.length > 0
-              ? item.product.imageProducts[0].imageLink
+            item.productImages.length > 0
+              ? item.productImages[0]
               : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-32.png"
           }
           className="w-100"
@@ -85,9 +87,9 @@ const CartItem = (props) => {
 
       <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
         <p>
-          <strong>{item.product.productName}</strong>
+          <strong>{item.productName}</strong>
         </p>
-        <p>{`Đơn giá : ${item.product.price} VND`}</p>
+        <p>{`Đơn giá : ${item.price} VND`}</p>
         <button
           type="button"
           className="btn btn-primary btn-sm me-1 mb-2"

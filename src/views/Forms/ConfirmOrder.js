@@ -8,33 +8,7 @@ const ConfirmOrder = ({
   handleConfirm,
   total,
 }) => {
-  // const [total, setTotal] = useState(0);
-
-  // useEffect(() => {
-  //   cart.map((item) => {
-  //     setTotal(total + item.quantity * item.product.price);
-  //   });
-  // }, []);
   return (
-    // <div>
-    //   <h4>Order Summary</h4>
-    //   {/* <p>Note: {note}</p> */}
-    //   <ul>
-    //     {cart.map((item) => (
-    //       <li key={item.product.id}>
-    //         Sản phẩm: {item.product.productName} Số lượng: {item.quantity}
-    //       </li>
-    //     ))}
-    //   </ul>
-    //   <button
-    //     onClick={() => {
-    //       setIsConfirming();
-    //     }}
-    //   >
-    //     Confirm Order
-    //   </button>
-    // </div>
-
     // ===================
     <div class="containerFormCheckOut">
       <div class="cardFormCheckOut cartFormCheckOut">
@@ -46,7 +20,6 @@ const ConfirmOrder = ({
               setPopupVisible(false);
             }}
           >
-            {" "}
             X
           </button>
         </div>
@@ -60,7 +33,9 @@ const ConfirmOrder = ({
             </div>
             <div>
               <span className="spanConFirmOrder">Địa chỉ giao hàng</span>
-              <p>{user.address}</p>
+              <p>
+                {user.street} {user.city}
+              </p>
             </div>
             <div>
               <span className="spanConFirmOrder">Số điện thoại nhận hàng</span>
@@ -76,28 +51,19 @@ const ConfirmOrder = ({
             <span className="spanConFirmOrder">Chi tiết đơn hàng</span>
             <div class="item">
               {cart.map((item) => (
-                <div key={item.product.id}>
+                <div key={item.productId}>
                   <p>
                     <strong style={{ marginRight: "3em" }}>
-                      {item.product.productName}
+                      {item.productName}
                     </strong>
                     Số lượng: <strong> {item.quantity}</strong>
-                  </p>{" "}
+                  </p>
                 </div>
               ))}
             </div>
 
-            {/* <hr /> */}
             <div class="paymentsFormCheckOut">
-              {/* <span className="spanConFirmOrder">Số tiền Cần thanh toán</span> */}
-              <div class="details">
-                {/* <span className="spanConFirmOrder">Subtotal:</span> */}
-                {/* <span className="spanConFirmOrder">{total} vnd</span> */}
-                {/* <span className="spanConFirmOrder">Shipping:</span>
-                <span className="spanConFirmOrder">$10.00</span>
-                <span className="spanConFirmOrder">Tax:</span>
-                <span className="spanConFirmOrder">$30.40</span> */}
-              </div>
+              <div class="details"></div>
             </div>
           </div>
         </div>

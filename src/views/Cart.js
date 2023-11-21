@@ -22,7 +22,7 @@ const Cart = () => {
     if (cart.length > 0) {
       setTotal(
         cart.reduce((total, item) => {
-          return total + item.quantity * item.product.price;
+          return total + item.quantity * item.price;
         }, 0)
       );
     }
@@ -33,6 +33,7 @@ const Cart = () => {
   //     const parsedData = JSON.parse(datatemp);
   //     setDataUser(parsedData);
 
+  //     console.log(datatemp + "user");
   //     if (parsedData && parsedData.shoppingCart && parsedData.shoppingCart.id) {
   //       setCartId(parsedData.shoppingCart.id);
   //     }
@@ -63,19 +64,15 @@ const Cart = () => {
 
   const fetchData = async () => {
     const user = JSON.parse(datatemp);
-
     try {
       const response = await fetch(
-        `http://localhost:8081/cart/getCart?customerId=${user.personId}`
+        `http://localhost:8081/cart/getCartItems?customerId=${user.personId}`
       );
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data + "ne");
 
-        // console.log("heahhahsdkhaskdhas" + data.customer.firstName);
-        // ra nè nha
-        // setCart(data.shoppingCartDetails);
+        setCart(data);
       } else {
         console.log("errrrrrrrrrrrrrrrr");
       }
@@ -101,8 +98,8 @@ const Cart = () => {
       // Tính tổng tiền dựa trên selectedItems và cập nhật quantity
       const { updatedTotal, updatedQuantity } = cart.reduce(
         (acc, item) => {
-          if (selectedItems[item.id]) {
-            acc.updatedTotal += item.quantity * item.product.price;
+          if (selectedItems[item.cartDetailId]) {
+            acc.updatedTotal += item.quantity * item.price;
             acc.updatedQuantity += item.quantity;
           }
           return acc;
@@ -126,8 +123,8 @@ const Cart = () => {
 
   const handleCheckOut = () => {
     const listCheckout = cart
-      .filter((item) => selectedItems[item.id])
-      .map((item) => item.id);
+      .filter((item) => selectedItems[item.cartDetailId])
+      .map((item) => item);
 
     history.push("/Checkout", { listCheckout });
   };
@@ -146,8 +143,11 @@ const Cart = () => {
               </div>
 
               <div className="card-body">
-                {dataUser ? (
+                {datatemp ? (
                   cart.map((item, index) => {
+                    {
+                      console.log(item.productId);
+                    }
                     return item.quantity !== 0 ? (
                       <CartItem
                         item={item}
@@ -155,9 +155,12 @@ const Cart = () => {
                         token={accessToken}
                         setCart={setCart}
                         updateCart={updateCart}
-                        selected={selectedItems[item.id] || false}
+                        selected={selectedItems[item.cartDetailId] || false}
                         onSelect={() =>
-                          handleSelectItem(item.id, !selectedItems[item.id])
+                          handleSelectItem(
+                            item.cartDetailId,
+                            !selectedItems[item.cartDetailId]
+                          )
                         }
                       />
                     ) : null;
