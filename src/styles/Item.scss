@@ -27,51 +27,20 @@
 .container-fluid {
     max-width: 1400px;
 
-    
-
 }
 
 .card {
-    // background: #fff;
-    // box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
-    // transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
-    // border: 0;
-    // border-radius: 1rem;
-
-/* From https://css.glass */
-/* From https://css.glass */
-
-
-border-radius: 33px;
-background: #e0e0e0;
-box-shadow:  34px 34px 82px #dddcdc,
-             -34px -34px 82px #ffffff;
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+    border: 0;
+    border-radius: 1rem;
 }
 
 .card-img,
 .card-img-top {
-    border-top-left-radius: calc(2rem - 1px);
-    border-top-right-radius: calc(2rem - 1px);
-
-    // border-radius: 0px;
-    background: linear-gradient(145deg, #ffffff, #e6e6e6);
-    box-shadow:  12px 12px 24px #e3e3e3,
-                 -12px -12px 24px #ffffff;
-
-
-
-}
-
-.button-custom {
-    background-color: #4eaf9b;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px 5px 10px;
-    font-size: 1rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    transition: all .3s ease-in-out;
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
 }
 
 
@@ -93,8 +62,6 @@ box-shadow:  34px 34px 82px #dddcdc,
     max-height: 250px;
     object-fit: contain;
     padding: 30px;
-    background-color: #e0e0e0a2;
-    
 }
 
 .card h2 {
@@ -157,6 +124,7 @@ box-shadow:  34px 34px 82px #dddcdc,
     border-radius: 10px;
 }
 .bold-btn {
+
     font-size: 1rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -243,69 +211,57 @@ box-shadow:  34px 34px 82px #dddcdc,
     color: darkgray;
 }
 
-.hightlight{
-    color: rgb(0, 37, 12);
-
-    font-size: 18px;
-    font-weight: 500;
-
-}
-
-
-.btn {
-    border: none;
-    width: 10em;
-    height: 3em;
-    border-radius: 3em;
+button {
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50px;
+    background-color: hsl(255deg 50% 40%);
+    border: solid 4px hsl(50deg 100% 50%);
+    font-family: inherit;
+    align-items: center;
+    align-self: center;
     display: flex;
     justify-content: center;
+   }
+   
+   .default-btn,.hover-btn {
+    background-color: hsl(255deg 50% 40%);
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
     align-items: center;
-    gap: 12px;
-    background: #1C1A1C;
-    cursor: pointer;
-    transition: all 150ms ease-in-out;
-  }
-  
-  .sparkle {
-    fill: #AAAAAA;
-    transition: all 200ms ease;
-    margin-top: 8px;
-    width: 30px;
-    height :30px
-  }
-  
-  .text {
-    font-weight: 600;
-    color: #AAAAAA;
-    font-size: medium;
-  }
-  
-  .btn:hover {
-    background: linear-gradient(0deg,#40cc5f,#035e03);
-    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
-    inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
-    0px 0px 0px 4px rgba(255, 255, 255, 0.2),
-    0px 0px 180px 0px #54ec35;
-    transform: translateY(-2px);
-  }
-  
-  .btn:hover .text {
-    color: white;
-  }
-  
-  .btn:hover .sparkle {
-    fill: white;
-    transform: scale(1.2);
-  } 
-
-  .body-card{
-    // border-radius: 25px;
-    border-radius: 0px;
-    background: #f0f3f1;
-    box-shadow: inset 0px -5px 10px #f1f3f2,
-                inset 0px 0px 0px rgb(236, 234, 234);
-                border-bottom-left-radius: 20px;
-                // border-bottom-left-radius: 20px;
-                border-bottom-right-radius: 20px;
-                
-  }
+    gap: 15px;
+    padding: 15px 20px;
+    border-radius: 50px;
+    font-size: 17px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s ease;
+   }
+   
+   .hover-btn {
+    position: absolute;
+    inset: 0;
+    background-color: hsl(255deg 50% 49%);
+    transform: translate(0%,100%);
+   }
+   
+   .default-btn span {
+    color: hsl(0, 0%, 100%);
+   }
+   
+   .hover-btn span {
+    color: hsl(50deg 100% 50%);
+   }
+   
+   button:hover .default-btn {
+    transform: translate(0%,-100%);
+   }
+   
+   button:hover .hover-btn {
+    transform: translate(0%,0%);
+   }

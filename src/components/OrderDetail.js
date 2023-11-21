@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import "../styles/OrderDetail.scss";
 import OrderTracking from "./OrderTracking";
 import { useLocation } from "react-router-dom";
-
+import "../styles/Butoon30.scss"
 const OrderDetail = ({}) => {
   function calculateTotal(order) {
     return order.orderDetails.reduce((total, orderDetail) => {
@@ -122,7 +122,7 @@ const OrderDetail = ({}) => {
             style={{ justifyContent: "right", paddingBottom: "1em" }}
           >
             {/* <button onClick={() => cancelOrder(order.id)}>Hủy đơn hàng</button> */}
-            <button className="btn btn-danger">Hủy đơn hàng</button>
+            <button className="button-30-red">Hủy đơn hàng</button>
           </div>
         </div>
       </div>

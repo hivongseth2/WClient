@@ -79,10 +79,13 @@ const ListOrder = () => {
         return "Trạng thái không xác định";
     }
   }
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetailsMap, setShowDetailsMap] = useState({});
 
-  const toggleDetails = () => {
-    setShowDetails(!showDetails);
+  const toggleDetails = (orderId) => {
+    setShowDetailsMap((prevMap) => ({
+      ...prevMap,
+      [orderId]: !prevMap[orderId],
+    }));
   };
 
   return (
@@ -111,10 +114,9 @@ const ListOrder = () => {
             </div>
           </div>
 
-          {showDetails && (
+          {showDetailsMap[order.orderId] && (
             <div>
               {order.orderDetails.map((orderDetail) => (
-
                 <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                   <div class="media-body order-2 order-lg-1">
                     <h5 class="mt-0 font-weight-bold mb-2">Sản phẩm {orderDetail.productName}</h5>
@@ -158,9 +160,9 @@ const ListOrder = () => {
                 <button
                   type="button"
                   className="button-30"
-                  onClick={toggleDetails}
+                  onClick={() => toggleDetails(order.orderId)}
                 >
-                  {showDetails ? "Ẩn chi tiết" : "Xem thêm"}
+                 {showDetailsMap[order.orderId] ? "Ẩn chi tiết" : "Xem thêm"}
                 </button>
               )}
               <button
