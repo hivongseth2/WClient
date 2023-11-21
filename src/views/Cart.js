@@ -141,8 +141,8 @@ const Cart = () => {
               className="card mb-12 item"
               // style={{ width: "45em", maxWidth: "50em" }}
             >
-              <div className="card-header">
-                <h5 className="mb-0"> {cart.length} mặt hàng</h5>
+              <div className="card-header" style={{ backgroundColor: '#4eaf9b' }}>
+                <h3 className="mb-0"> {cart.length} mặt hàng</h3>
               </div>
 
               <div className="card-body" style={{ backgroundColor: "white" }}>

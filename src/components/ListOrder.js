@@ -156,7 +156,7 @@ const ListOrder = () => {
               className="h-container px-2"
               style={{ justifyContent: "right", paddingBottom: "1em" }}
             >
-              {order.orderDetails.length > 1 && (
+              {order.orderDetails.length > 0 && (
                 <button
                   type="button"
                   className="button-30"

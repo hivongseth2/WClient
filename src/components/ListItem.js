@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Item from "./Item";
 import "../styles/ListItem.scss"; // Import CSS
+import arrowLeft from "../assets/images/left-arrow.svg";
+import arrowRight from "../assets/images/right-arrow.svg";
 
 const ListItem = () => {
   const [dataPhone, setDataPhone] = useState([]);
@@ -40,22 +42,21 @@ const ListItem = () => {
         {" "}
         {/* Thêm class list-container */}
         <div className="btn-left">
-          <button
-            className="btn  btn-previous"
+
+          <div
             onClick={handlePrevious}
             disabled={currentIndex === 0}
           >
-            <span>&#60;</span>
-          </button>
+            <img src={arrowLeft} alt="Your SVG" width="50" />
+          </div>
         </div>
         <div className="btn-right">
-          <button
-            className="btn  btn-next"
+          <div
             onClick={handleNext}
             disabled={currentIndex >= dataPhone.length - itemsPerPage}
           >
-            <span>&#62;</span>
-          </button>
+            <img src={arrowRight} alt="Your SVG" width="50" />
+          </div>
         </div>
         <div className="row">
           <div className="col-md-12">
