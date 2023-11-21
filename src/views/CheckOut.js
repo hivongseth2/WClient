@@ -60,6 +60,7 @@ const CheckOut = (props) => {
       orderDate: new Date(),
       orderId: Math.random(),
       shipDate: null,
+      status: 1,
       address: `${user.street}, ${user.city}`,
       orderDetails: cart.reduce((details, item) => {
         details[item.productId] = item.quantity;

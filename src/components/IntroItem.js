@@ -10,23 +10,22 @@ const IntroItem = (props) => {
   const [data, setData] = useState();
   const [status, setStatus] = useState(false);
   const [spec, setSpec] = useState([]);
-  console.log("spec", spec);
-  // useEffect(() => {
-  //   setValue(localStorage.getItem("content"));
-  // }, []);
-
-  useEffect(async () => {
-    if (props.data) {
-      let res = await axios.get(
-        // `http://localhost:8521/api/v1/products/getById/${props.data}`
-        `http://localhost:8081/product/get?productId=${props.data}`
-      );
-      setData(res.data);
-      setValue(res.data.properties);
-      setSpec(res.data.properties);
-      // console.log("intro : ", res);
-    }
+  useEffect(() => {
+    setValue(localStorage.getItem("content"));
   }, []);
+
+  // useEffect(async () => {
+  //   if (props.data) {
+  //     let res = await axios.get(
+  //       // `http://localhost:8521/api/v1/products/getById/${props.data}`
+  //       `http://localhost:8081/product/get?productId=${props.data}`
+  //     );
+  //     setData(res.data);
+  //     setValue(res.data.properties);
+  //     setSpec(res.data.properties);
+  //     // console.log("intro : ", res);
+  //   }
+  // }, []);
 
   const openEdit = () => {
     setStatus(true);
@@ -50,22 +49,10 @@ const IntroItem = (props) => {
       ["link", "image", "video"],
     ],
   };
-  const SaveContent = async () => {
-    try {
-      data.description = value;
-
-      const res = await axios.post(
-        "http://localhost:8521/api/v1/products/saveOrUpdate",
-        data
-      );
-
-      console.log("Phản hồi từ server:", res.data);
-      setStatus(false);
-    } catch (error) {
-      // Xử lý lỗi nếu có
-      console.log(value);
-      console.error("Lỗi:", error);
-    }
+  const SaveContent = () => {
+    // Lưu nội dung vào local storage và cập nhật state
+    localStorage.setItem("content", JSON.stringify(value));
+    setStatus(false);
   };
   return (
     <div className="container-fluid shadow-none p-3 mb-5 bg-light rounded">
