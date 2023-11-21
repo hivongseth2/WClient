@@ -14,24 +14,34 @@ const ListOrder = () => {
   useEffect(() => {
     const temp = JSON.parse(localStorage.getItem("data"));
     setUser(temp);
+    console.log(temp);
   }, []);
 
-  const cancelOrder = (id) => {
-    axios
-      .delete(`http://localhost:8521/api/v1/orderDetails/delete/${id}`)
-      .then((res) => {
+  const cancelOrder = (order) => {
+    if (order.status === "1") {
+      fetch(`http://localhost:8081/order/updateStatus/${order.orderId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: "0",
+      }).then((res) => {
         console.log(res.data);
         //   history.push("/Personal");
         toast.success("Bạn đã hủy đơn hàng thành công");
       })
-      .catch((error) => {
-        toast.error("Có lỗi xảy ra vui lòng thử lại sau!");
-        console.log(error);
-      });
+        .catch((error) => {
+          toast.error("Có lỗi xảy ra vui lòng thử lại sau!");
+          console.log(error);
+        });
+    }
+    else {
+      toast.error("Đơn hàng đã được xử lý không thể hủy!");
+    }
   };
 
   const handleViewOrderDetail = (order) => {
-    history.push(`/OrderDetail/${order.id}`, { orderData: order });
+    history.push(`/OrderDetail/${order.orderId}`, { orderData: order });
   };
   const handleShowOrderDetail = (order) => {
     setShowOrderDetail(true);
@@ -41,7 +51,7 @@ const ListOrder = () => {
   useEffect(() => {
     if (user) {
       axios
-        .get(`http://localhost:8521/api/v1/orders/getByCustomer/${user.id}`)
+        .get(`http://localhost:8081/order/getOrdersByCustomerId?customerId=${user.personId}`)
         .then((res) => {
           setListOrder(res.data);
           console.log(res.data);
@@ -51,9 +61,9 @@ const ListOrder = () => {
         });
     }
   }, [user]);
-  function calculateTotal(orderDetails) {
-    return orderDetails.reduce((total, orderDetail) => {
-      const productTotal = orderDetail.quantity * orderDetail.product.price;
+  function calculateTotal(order) {
+    return order.orderDetails.reduce((total, orderDetail) => {
+      const productTotal = orderDetail.quantity * orderDetail.price;
       return total + productTotal;
     }, 0);
   }
@@ -67,17 +77,17 @@ const ListOrder = () => {
               <span style={{ marginLeft: "2em", color: "#9DB2BF" }}>
                 Ngày tạo đơn:{" "}
                 <span style={{ color: "#9DB2BF" }}>
-                  {new Date(order.date).toLocaleDateString()}
+                  {new Date(order.orderDate).toLocaleDateString()}
                 </span>
               </span>
               <span style={{ color: "#9DB2BF" }}>
-                Trạng thái: {order.statusOrder}
+                Trạng thái: null
               </span>
             </div>
             <div className="h-container">
               <span style={{ color: "#DDE6ED", marginLeft: "2em" }}>
                 {" "}
-                {order.id}
+                {order.orderId}
               </span>
               <span style={{ color: "#9DB2BF" }}>Thanh toán khi nhận hàng</span>
             </div>
@@ -85,22 +95,22 @@ const ListOrder = () => {
           {order.orderDetails.map((orderDetail) => (
             <div className="orderItemContainer">
               <span className="h-container" style={{ color: "#176B87" }}>
-                {orderDetail.product.productName}
+                {orderDetail.productName}
                 <span style={{ marginInline: "1em" }}>
                   x{orderDetail.quantity}
                 </span>
               </span>
-              <div key={orderDetail.id} className="h-container orderDetails">
+              <div className="h-container orderDetails">
                 <img
                   src={
-                    orderDetail.product.imageProducts.length > 0
-                      ? orderDetail.product.imageProducts[0].imageLink
+                    orderDetail.productImages.length > 0
+                      ? orderDetail.productImages[0]
                       : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-32.png"
                   }
                   alt="Product"
                 />
                 <span className="totalOrder" style={{ color: "#176B87" }}>
-                  {orderDetail.quantity * orderDetail.product.price} VND
+                  {orderDetail.quantity * orderDetail.price} VND
                 </span>
               </div>
             </div>
@@ -110,7 +120,7 @@ const ListOrder = () => {
               className="h-container mx-4"
               style={{ justifyContent: "right", color: "#E74646" }}
             >
-              Tổng tiền: {calculateTotal(order.orderDetails).toFixed(2)} VND
+              Tổng tiền: {calculateTotal(order).toFixed(2)} VND
             </div>
             <div
               className="h-container px-2"
@@ -118,10 +128,11 @@ const ListOrder = () => {
             >
               <button
                 className="btn btn-danger"
-                onClick={() => cancelOrder(order.id)}
+                onClick={() => cancelOrder(order)}
               >
-                Hủy đơn hàng
+                {order.status === "0" ? 'Đã hủy' : 'Hủy đơn hàng'}
               </button>
+
               {/* <button className="btn btn-danger">Hủy đơn hàng</button> */}
               <button
                 className="btn btn-light mx-2"

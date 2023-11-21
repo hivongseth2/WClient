@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
 
+import "../styles/Butoon30.scss"
+
 import Filter from "./Filter";
 import BtnCart from "./BtnCart";
 
@@ -59,7 +61,6 @@ const Item = (props) => {
 
     // Fetch existing shopping cart data
     const existingCartResponse = await axios.get(
-      // `http://localhost:8521/api/v1/shoppingCarts/getById/${userData.shoppingCart.productId}`
       `http://localhost:8081/product/get?productId=${props.data}`
     );
 
@@ -136,14 +137,14 @@ const Item = (props) => {
           </a>
 
           <div class="label-top shadow-sm">
-            <a class="text-white" target="_blank" onClick={() => handleView()}>
+            {/* <a class="text-white" target="_blank" onClick={() => handleView()}>
               {data.children ? data.children.name : ""}
-            </a>
+            </a> */}
           </div>
           <div class="card-body">
             <div class="clearfix mb-3">
-              <span class="float-start badge rounded-pill bg-primary">
-                {" "}
+              <span class="button-30">
+                {"  "}
                 {data.children ? data.children.price : 0} <span>VND </span>
               </span>
             </div>
@@ -155,7 +156,7 @@ const Item = (props) => {
 
             <div class="d-grid gap-2 my-4">
               <button
-                class="btn btn-primary bold-btn"
+                class="btn button-custom bold-btn"
                 onClick={() => addCartItem()}
               >
                 add to cart
