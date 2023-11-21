@@ -27,12 +27,12 @@ const Filter = ({ category, brand, setSelectedCategory, setSelectedBrand }) => {
 
   return (
     <div
-      className="container-xs shadow-none p-3 mb-5 bg-body-tertiary rounded"
+      className="container-xs  p-3 mb-5  FilterGroup"
       style={{ color: "#333" }}
     >
-      <div className="d-flex flex-column bd-highlight mb-3">
-        <div className="p-2 bd-highlight shadow p-3 mb-2 bg-body-tertiary rounded">
-          Thương hiệu
+      <div className="d-flex flex-column  mb-3 ">
+        <div className="p-2 p-3 mb-2   ">
+          <span className="hightlight">Thương hiệu</span>
           {brand &&
             brand.length > 0 &&
             brand.map((item) => (
@@ -54,10 +54,11 @@ const Filter = ({ category, brand, setSelectedCategory, setSelectedBrand }) => {
             ))}
         </div>
         {/* ============ */}
+        <div className="containerFilter"></div>
 
-        <div className="rangePrice p-2 bd-highlight shadow p-3 mb-2 bg-body-tertiary rounded">
+        <div className="rangePrice p-2  p-3 mb-2   ">
           <label htmlFor="customRange3" className="form-label">
-            Loại sản phẩm
+            <span className="hightlight">Loại sản phẩm</span>
           </label>
 
           {category &&
@@ -79,37 +80,6 @@ const Filter = ({ category, brand, setSelectedCategory, setSelectedBrand }) => {
                 </label>
               </div>
             ))}
-        </div>
-      </div>
-
-      <div className="rangePrice p-2 bd-highlight shadow p-3 mb-2 bg-body-tertiary rounded">
-        <label htmlFor="customRange3" className="form-label">
-          Khoảng giá
-        </label>
-        <div className="d-flex flex-row">
-          {/* ============= */}
-          <div className="input-group mb-3 mx-3 ">
-            <span className="input-group-text">Từ</span>
-
-            <input
-              type="text"
-              className="form-control"
-              aria-label="Amount (to the nearest dollar)"
-            />
-            <span className="input-group-text">VND</span>
-          </div>
-          {/* ============ */}
-
-          <div className="input-group mb-3 mx-1">
-            <span className="input-group-text">Đến</span>
-            <input
-              type="text"
-              className="form-control"
-              aria-label="Amount (to the nearest dollar)"
-            />
-
-            <span className="input-group-text">VND</span>
-          </div>
         </div>
       </div>
     </div>

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import "../styles/OrderTracking.scss";
 
 const OrderTracking = ({ orderStatus }) => {
-  console.log('order tracking',orderStatus);
+  console.log("order tracking", orderStatus);
 
   return (
     <div className="container-xxl padding-bottom-3x mb-1">
-      <div className="card mb-3">
+      <div className="card mb-3" style={{ boxShadow: "none" }}>
         <div className="p-4 text-center text-white text-lg bg-dark rounded-top">
           <span className="text-uppercase">Thông tin vận chuyển</span>
           <span className="text-medium"></span>
@@ -30,9 +30,7 @@ const OrderTracking = ({ orderStatus }) => {
         </div>
         <div className="card-body">
           <div className="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-            <div
-              className={`step ${orderStatus === "1" && "completed"}`}
-            >
+            <div className={`step ${orderStatus === "1" && "completed"}`}>
               <div className="step-icon-wrap">
                 <div className="step-icon">
                   <i className="fas fa-shopping-cart me-1"></i>
@@ -41,11 +39,7 @@ const OrderTracking = ({ orderStatus }) => {
               <h4 className="step-title">Chờ xác nhận</h4>
             </div>
 
-            <div
-              className={`step ${
-                orderStatus === "2" && "completed"
-              }`}
-            >
+            <div className={`step ${orderStatus === "2" && "completed"}`}>
               <div className="step-icon-wrap">
                 <div className="step-icon">
                   <i className="fas fa-clipboard-check"></i>
@@ -54,11 +48,7 @@ const OrderTracking = ({ orderStatus }) => {
               <h4 className="step-title">Xác nhận đơn hàng</h4>
             </div>
 
-            <div
-              className={`step ${
-                orderStatus === "3" && "completed"
-              }`}
-            >
+            <div className={`step ${orderStatus === "3" && "completed"}`}>
               <div className="step-icon-wrap">
                 <div className="step-icon">
                   <i className="fa fa-dolly"></i>{" "}
@@ -80,9 +70,7 @@ const OrderTracking = ({ orderStatus }) => {
               <h4 className="step-title">Đang vận chuyển</h4>
             </div> */}
 
-            <div
-              className={`step ${orderStatus === "4" && "completed"}`}
-            >
+            <div className={`step ${orderStatus === "4" && "completed"}`}>
               <div className="step-icon-wrap">
                 <div className="step-icon">
                   <i className="fas fa-check-double"></i>
