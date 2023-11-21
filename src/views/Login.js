@@ -62,7 +62,10 @@ const Login = () => {
       <div className="col-12">
         <div className="containerLogo">
           <h2 style={{ display: "block" }}>Đăng nhập</h2>
-          <img className="logoLogin" src={logo} alt="Logo"></img>
+          <img
+            class="logo "
+            src="/static/media/logo2.8bdca3e02b4dcef54a5b.png"
+          ></img>
         </div>
 
         <div className="mb-3 p">

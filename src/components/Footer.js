@@ -53,12 +53,12 @@ const Footer = () => {
           <div className="row d-flex justify-content-center">
             <div className="col-lg-8">
               <p>
-                Mivin - Thương hiệu đẳng cấp trong lĩnh vực công nghệ, chuyên
-                cung cấp và phân phối những sản phẩm và giải pháp đột phá, mang
-                đến cho bạn không chỉ sự tiện nghi mà còn là trải nghiệm hoàn
-                hảo trong cuộc sống sống động và hiện đại. Chúng tôi tự hào đồng
-                hành cùng bạn trên con đường sáng tạo và khám phá những tiềm
-                năng vô tận của công nghệ
+                Camera Studio - Thương hiệu đẳng cấp trong lĩnh vực công nghệ,
+                chuyên cung cấp và phân phối những sản phẩm và giải pháp đột
+                phá, mang đến cho bạn không chỉ sự tiện nghi mà còn là trải
+                nghiệm hoàn hảo trong cuộc sống sống động và hiện đại. Chúng tôi
+                tự hào đồng hành cùng bạn trên con đường sáng tạo và khám phá
+                những tiềm năng vô tận của công nghệ
               </p>
             </div>
           </div>
