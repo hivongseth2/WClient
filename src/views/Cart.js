@@ -28,22 +28,20 @@ const Cart = () => {
     }
   }, [cart]);
 
-  useEffect(() => {
-    if (datatemp) {
-      const parsedData = JSON.parse(datatemp);
-      setDataUser(parsedData);
+  // useEffect(() => {
+  //   if (datatemp) {
+  //     const parsedData = JSON.parse(datatemp);
+  //     setDataUser(parsedData);
 
-      if (parsedData && parsedData.shoppingCart && parsedData.shoppingCart.id) {
-        setCartId(parsedData.shoppingCart.id);
-      }
-    }
-  }, [datatemp]);
+  //     if (parsedData && parsedData.shoppingCart && parsedData.shoppingCart.id) {
+  //       setCartId(parsedData.shoppingCart.id);
+  //     }
+  //   }
+  // }, [datatemp]);
 
   useEffect(() => {
-    if (CartId) {
-      fetchData();
-    }
-  }, [CartId]);
+    fetchData();
+  }, []);
 
   const updateCart = async () => {
     try {
@@ -64,15 +62,20 @@ const Cart = () => {
   }, [cart]);
 
   const fetchData = async () => {
+    const user = JSON.parse(datatemp);
+
     try {
       const response = await fetch(
-        `http://localhost:8521/api/v1/shoppingCarts/getById/${CartId}`
+        `http://localhost:8081/cart/getCart?customerId=${user.personId}`
       );
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.shoppingCartDetails);
-        setCart(data.shoppingCartDetails);
+        console.log(data + "ne");
+
+        // console.log("heahhahsdkhaskdhas" + data.customer.firstName);
+        // ra nè nha
+        // setCart(data.shoppingCartDetails);
       } else {
         console.log("errrrrrrrrrrrrrrrr");
       }

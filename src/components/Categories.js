@@ -1,8 +1,26 @@
+import React, { useState, useEffect } from "react";
 import "../styles/Categories.scss";
+
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/categories");
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div
-      class="container-fluid  shadow-sm p-3 mb-5  rounded"
+      className="container-fluid shadow-sm p-3 mb-5 rounded"
       style={{ backgroundColor: "white" }}
     >
       <div class="row mt-2 g-4">
@@ -99,4 +117,5 @@ const Categories = () => {
     </div>
   );
 };
+
 export default Categories;

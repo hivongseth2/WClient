@@ -27,11 +27,10 @@ const HomeShopping = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        let res = await axios.get(
-          "http://localhost:8081/product"
-        );
+        let res = await axios.get("http://localhost:8081/product");
         let data = res && res.data ? res.data : [];
         setDataPhone(data);
+        console.log("data", data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -58,7 +57,7 @@ const HomeShopping = () => {
         <div className="row">
           <div className="col-md-6 text-end">
             <button
-              className="btn btn-primary"
+              className="btn btn-secondary"
               onClick={handlePrevious}
               disabled={currentIndex === 0}
             >
@@ -67,7 +66,7 @@ const HomeShopping = () => {
           </div>
           <div className="col-md-6">
             <button
-              className="btn btn-primary"
+              className="btn btn-secondary"
               onClick={handleNext}
               disabled={currentIndex >= dataPhone.length - itemsPerPage}
             >

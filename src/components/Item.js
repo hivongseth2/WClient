@@ -49,49 +49,19 @@ const Item = (props) => {
 
   const addCartItem = async () => {
     const userData = JSON.parse(localStorage.getItem("data"));
+    console.log("cục này là data", data);
+
+    console.log("userDTA DÒNG 50 NÈ ", userData);
     const form = {
-      product: { id: data.children.productId },
-      shoppingCart: { id: userData.shoppingCart.productId },
+      customerId: userData.personId,
       quantity: 1,
+
+      productId: data.children.productId,
     };
 
-    if (userData && userData.token) {
-      delete userData.token;
-    }
-
     // Fetch existing shopping cart data
-    const existingCartResponse = await axios.get(
-      `http://localhost:8081/product/get?productId=${props.data}`
-    );
 
-    if (
-      existingCartResponse.data &&
-      existingCartResponse.data.shoppingCartDetails
-    ) {
-      const existingProduct =
-        existingCartResponse.data.shoppingCartDetails.find(
-          (item) => item.product.id === data.children.productId
-        );
-
-      if (existingProduct) {
-        // Product already in cart, increase quantity
-        await axios.post(
-          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-          {
-            id: existingProduct.productId,
-            product: { id: existingProduct.product.productId },
-            shoppingCart: { id: existingProduct.shoppingCart.productId },
-            quantity: existingProduct.quantity + 1,
-          }
-        );
-      } else {
-        // Product not in cart, add it
-        await axios.post(
-          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-          form
-        );
-      }
-    }
+    await axios.put("http://localhost:8081/cart/updateCartItem", form);
   };
 
   // =============
@@ -101,8 +71,8 @@ const Item = (props) => {
         props && data.children.images.length > 0
           ? setImg(data.children.images[0].id)
           : setImg(
-              "https://media.istockphoto.com/id/936182806/vi/vec-to/kh%C3%B4ng-c%C3%B3-d%E1%BA%A5u-hi%E1%BB%87u-h%C3%ACnh-%E1%BA%A3nh-kh%E1%BA%A3-d%E1%BB%A5ng.jp...u8TKYiE="
-            );
+            "https://media.istockphoto.com/id/936182806/vi/vec-to/kh%C3%B4ng-c%C3%B3-d%E1%BA%A5u-hi%E1%BB%87u-h%C3%ACnh-%E1%BA%A3nh-kh%E1%BA%A3-d%E1%BB%A5ng.jp...u8TKYiE="
+          );
       }
       setData(props);
     }
@@ -122,56 +92,52 @@ const Item = (props) => {
 
   return (
     <>
-      <div class="col hp">
-        <div class="card h-100 shadow-sm">
-          <a
-            target="_blank"
-            href={data.children ? data.children.productLink : "#"}
-          >
-            <img
-              src={img}
-              class="card-img-top"
-              alt={data.children ? data.children.name : "Product Title"}
-              onClick={() => handleView()}
-            />
-          </a>
+      <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-6 col-xl-10">
+          <div class="card text-black">
+            <a
+              target="_blank"
+              href={data.children ? data.children.productLink : "#"}
+            >
+              <img
+                src={img}
+                class="card-img-top"
+                alt={data.children ? data.children.name : "Product Title"}
+                onClick={() => handleView()}
+              />
+            </a>
 
-          <div class="label-top shadow-sm">
-            {/* <a class="text-white" target="_blank" onClick={() => handleView()}>
-              {data.children ? data.children.name : ""}
-            </a> */}
-          </div>
-          <div class="card-body">
-            <div class="clearfix mb-3">
-              <span class="button-30">
-                {"  "}
-                {data.children ? data.children.price : 0} <span>VND </span>
-              </span>
-            </div>
-            <h5 class="card-title">
-              <a target="_blank" href="#">
-                {data.children ? data.children.name : ""}
-              </a>
-            </h5>
+            <div class="card-body">
+              <div class="text-center">
+                <p class="text-muted mb-2" target="_blank" onClick={() => handleView()}>{data.children ? data.children.name : ""}</p>
+              </div>
+              <div>
+                <div class="d-flex justify-content-between">
+                  <span>Giá</span><span>${" "}
+                    {data.children ? data.children.price : 0}</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Nhà sản xuất</span><span>{data.children ? data.children.brandName : 0}</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Loại máy ảnh</span><span>{data.children ? data.children.categoryName : 0}</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Ngày phát hành</span>
+                  <span>{data.children ? new Date(data.children.yearOfManual).toLocaleDateString() : 'N/A'}</span>
 
-            <div class="d-grid gap-2 my-4">
-              <button
-                class="btn button-custom bold-btn"
-                onClick={() => addCartItem()}
-              >
-                add to cart
-              </button>
-            </div>
-            <div class="clearfix mb-1">
-              <span class="float-start">
-                <a href="#">
-                  <i class="fas fa-question-circle"></i>
-                </a>
-              </span>
-
-              <span class="float-end">
-                <i class="far fa-heart" style={{ cursor: "pointer" }}></i>
-              </span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center total font-weight-bold mt-2">
+                <div class="d-grid gap-2 my-4">
+                  <button
+                    class="btn button-custom bold-btn"
+                    onClick={() => addCartItem()}
+                  >
+                    add to cart
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ const Footer = () => {
     /* Footer */
     <footer
       className="text-center text-white"
-      style={{ backgroundColor: "#FCAC8C" }}
+      style={{ backgroundColor: "#4eaf9b" }}
     >
       <div className="container-fluid">
         {/* Section: Links */}

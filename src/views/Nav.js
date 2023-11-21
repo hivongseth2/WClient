@@ -56,17 +56,17 @@ const Nav = () => {
           {/* <div className="ms-auto d-none d-lg-block "> */}
           <div className=" d-none d-lg-block ">
             <div className="input-group searchContainer">
-              <span className="border-primary input-group-text bg-primary text-black">
+              <span className=" input-group-text bg-light text-black">
                 <i className="fas fa-search"></i>
               </span>
               <input
                 type="text"
                 value={searchInput}
-                className="form-control border-primary"
+                className="form-control"
                 onChange={(e) => setSearchInput(e.target.value)}
               />
               <button
-                className="btn btn-primary text-white"
+                className="btn btn-danger text-white"
                 onClick={() => search()}
               >
                 Tìm kiếm
