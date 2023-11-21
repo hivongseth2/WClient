@@ -1,6 +1,6 @@
-import thum1 from "../assets/images/thumbai_1.png";
-import thum2 from "../assets/images/thumbai_2.png";
-import thum3 from "../assets/images/thumbai_3.png";
+import thum1 from "../assets/images/thumbai_4.png";
+import thum2 from "../assets/images/thumbai_5.png";
+import thum3 from "../assets/images/thumbai_6.png";
 const Slider = () => {
   return (
     <div id="carouselExampleDark" class="carousel carousel-dark slide">
@@ -37,10 +37,6 @@ const Slider = () => {
             class="d-block w-100 object-fit-cover border rounded"
             alt="..."
           />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Thu cũ đổi mới</h5>
-            <p>Trợ giá đến 5 triệu.</p>
-          </div>
         </div>
         <div
           class="carousel-item"
@@ -52,19 +48,9 @@ const Slider = () => {
             class="d-block w-100 object-fit-cover border rounded"
             alt="..."
           />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Máy tính chơi game</h5>
-            <p>
-              Máy tính chơi game thế hệ hệ mới, trang bị vi xử lý thế hệ 12.
-            </p>
-          </div>
         </div>
         <div class="carousel-item" style={{ height: "520px" }}>
           <img src={thum3} class="d-block w-100" alt="..." />
-          <div class="carousel-caption d-none d-md-block object-fit-fill border rounded">
-            <h5>Đổi điểm lấy quà</h5>
-            <p>Thi bao nhiêu điểm giảm liền bấy nhiêu.</p>
-          </div>
         </div>
       </div>
       <button

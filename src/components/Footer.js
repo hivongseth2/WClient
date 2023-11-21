@@ -3,7 +3,7 @@ const Footer = () => {
     /* Footer */
     <footer
       className="text-center text-white"
-      style={{ backgroundColor: "#146C94" }}
+      style={{ backgroundColor: "#4eaf9b" }}
     >
       <div className="container-fluid">
         {/* Section: Links */}
@@ -94,7 +94,7 @@ const Footer = () => {
       >
         © 2023 Copyright:
         <a className="text-white" href="/">
-          MIVIN
+          SpaceCode
         </a>
       </div>
     </footer>

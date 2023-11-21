@@ -26,7 +26,7 @@ const FormCheckOut = ({ note, setNote }) => {
             id="name"
             placeholder=""
             disabled
-            value={`${user.lastName} ${user.firstName}  `}
+            value={`${user.firstName} ${user.lastName}  `}
             required
           />
           <div className="invalid-feedback">Valid first name is required.</div>
@@ -59,7 +59,7 @@ const FormCheckOut = ({ note, setNote }) => {
             className="form-control"
             id="address"
             disabled
-            value={`${user.address}  `}
+            value={`${user.street} ${user.city}  `}
             placeholder=""
             required
           />

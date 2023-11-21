@@ -21,39 +21,21 @@ const CheckOut = (props) => {
   const [isConfirming, setIsConfirming] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
 
-  useEffect(() => {
-    setCartId(props.location.state.listCheckout);
-  }, [props.location.state.listCheckout]);
-
   // lấy thông tin user
   useEffect(() => {
-    const data = localStorage.getItem("data");
-    setUser(JSON.parse(data));
+    const UserData = JSON.parse(localStorage.getItem("data"));
+
+    setUser(UserData);
   }, []);
   useEffect(() => {
-    const fetchData = async () => {
-      const tempCart = await Promise.all(
-        CartId.map(async (item) => {
-          return await fetchCartDetail(item);
-        })
-      );
-
-      // Lọc ra những giá trị không null
-      const filteredCart = tempCart.filter((item) => item !== null);
-      setCart(filteredCart);
-    };
-
-    fetchData();
+    setCart(props.location.state.listCheckout);
   }, [CartId]);
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
   useEffect(() => {
     if (cart.length > 0) {
       setTotal(
         cart.reduce((total, item) => {
-          return total + item.quantity * item.product.price;
+          return total + item.quantity * item.price;
         }, 0)
       );
     }
@@ -71,55 +53,35 @@ const CheckOut = (props) => {
 
   // =========tạo order
   const handleConfirm = async () => {
+    console.log("user nè ", user);
     // Prepare the order details as specified
     const orderData = {
-      note,
-      customer: {
-        id: user.id, // Replace with actual customer ID
-      },
-      orderDetails: cart.map((item) => ({
-        quantity: item.quantity,
-        product: {
-          id: item.product.id,
-        },
-      })),
+      customerId: user.personId,
+      orderDate: new Date(),
+      orderId: Math.random(),
+      shipDate: null,
+      address: `${user.street}, ${user.city}`,
+      orderDetails: cart.reduce((details, item) => {
+        details[item.productId] = item.quantity;
+        return details;
+      }, {}),
     };
-    const res = await axios
-      .post("http://localhost:8521/api/v1/orders/saveOrUpdate", orderData)
 
+    const res = await axios
+      .post("http://localhost:8081/order/add", orderData)
       .then((res) => {
         console.log("đơn hàng đã được tạo:", res.data);
-
         toast.success(`bạn đã tạo đơn hàng thành công`);
         history.push("/SuccessOrder");
       })
       .catch((error) => {
         // Xử lý khi có lỗi xảy ra
         toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
-
         console.log(error);
       });
   };
 
   // ====
-  const fetchCartDetail = async (id) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8521/api/v1/shoppingCartDetails/getById/${id}`
-      );
-
-      if (response.status === 200) {
-        const data = response.data;
-        return data;
-      } else {
-        console.log("errrrrrrrrrrrrrrrr");
-        return null;
-      }
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
 
   return (
     <div className="container-lg mt-1 bg-white rounded">

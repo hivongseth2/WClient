@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../styles/OrderTracking.scss";
 
 const OrderTracking = ({ orderStatus }) => {
+  console.log('order tracking',orderStatus);
+
   return (
     <div className="container-xxl padding-bottom-3x mb-1">
       <div className="card mb-3">
@@ -29,19 +31,19 @@ const OrderTracking = ({ orderStatus }) => {
         <div className="card-body">
           <div className="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
             <div
-              className={`step ${orderStatus === "Đang xử lý" && "completed"}`}
+              className={`step ${orderStatus === "1" && "completed"}`}
             >
               <div className="step-icon-wrap">
                 <div className="step-icon">
                   <i className="fas fa-shopping-cart me-1"></i>
                 </div>
               </div>
-              <h4 className="step-title">Tạo đơn hàng</h4>
+              <h4 className="step-title">Chờ xác nhận</h4>
             </div>
 
             <div
               className={`step ${
-                orderStatus === "Xác nhận đơn hàng" && "completed"
+                orderStatus === "2" && "completed"
               }`}
             >
               <div className="step-icon-wrap">
@@ -54,7 +56,7 @@ const OrderTracking = ({ orderStatus }) => {
 
             <div
               className={`step ${
-                orderStatus === "Giao cho đơn vị vận chuyển" && "completed"
+                orderStatus === "3" && "completed"
               }`}
             >
               <div className="step-icon-wrap">
@@ -65,9 +67,9 @@ const OrderTracking = ({ orderStatus }) => {
               <h4 className="step-title">Giao cho đơn vị vận chuyển</h4>
             </div>
 
-            <div
+            {/* <div
               className={`step ${
-                orderStatus === "Đang vận chuyển" && "completed"
+                orderStatus === "4" && "completed"
               }`}
             >
               <div className="step-icon-wrap">
@@ -76,10 +78,10 @@ const OrderTracking = ({ orderStatus }) => {
                 </div>
               </div>
               <h4 className="step-title">Đang vận chuyển</h4>
-            </div>
+            </div> */}
 
             <div
-              className={`step ${orderStatus === "Hoàn thành" && "completed"}`}
+              className={`step ${orderStatus === "4" && "completed"}`}
             >
               <div className="step-icon-wrap">
                 <div className="step-icon">

@@ -12,6 +12,8 @@ const Shopping = () => {
   const location = useLocation();
   const { searchValue } = location.state || { searchValue: "" };
 
+  console.log("search value in shopping", searchValue);
+
   // ===
   const [dataPhone, setDataPhone] = useState([]);
   const [category, setCategory] = useState([]);
@@ -40,37 +42,26 @@ const Shopping = () => {
   ];
 
   useEffect(() => {
-    if (searchValue === "") {
-      // Fetch data when searchValue is empty
-      async function fetchData() {
-        try {
-          let res = await axios.get("http://localhost:8081/product");
-          let data = res && res.data ? res.data : [];
-          setDataPhone(data);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      }
+    const fetchData = async () => {
+      try {
+        let res = await axios.get("http://localhost:8081/product");
+        let data = res && res.data ? res.data : [];
 
-      fetchData();
-    } else {
-      // Fetch data based on searchValue
-      async function fetchData() {
-        try {
-          let res = await axios.get(
-            `http://localhost:8521/api/v1/products/getByName/${searchValue}`
+        // Filter data based on searchValue
+        if (searchValue !== "") {
+          data = data.filter((item) =>
+            item.name.toLowerCase().includes(searchValue.toLowerCase())
           );
-
-          let data = res && res.data ? res.data : [];
-          setDataPhone(data);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          setDataPhone([]);
         }
-      }
 
-      fetchData();
-    }
+        setDataPhone(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setDataPhone([]);
+      }
+    };
+
+    fetchData();
   }, [searchValue]);
 
   useEffect(() => {
@@ -98,8 +89,8 @@ const Shopping = () => {
     // không rỗng thì lọc
     filteredProducts = dataPhone.filter((item) => {
       return (
-        selectedCategory.includes(String(item.category.categoryId)) ||
-        selectedBrand.includes(String(item.brand.brandId))
+        selectedCategory.includes(String(item.categoryId)) ||
+        selectedBrand.includes(String(item.brandId))
       );
     });
   }

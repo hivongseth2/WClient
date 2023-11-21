@@ -8,113 +8,215 @@ const ConfirmOrder = ({
   handleConfirm,
   total,
 }) => {
-  // const [total, setTotal] = useState(0);
-
-  // useEffect(() => {
-  //   cart.map((item) => {
-  //     setTotal(total + item.quantity * item.product.price);
-  //   });
-  // }, []);
   return (
-    // <div>
-    //   <h4>Order Summary</h4>
-    //   {/* <p>Note: {note}</p> */}
-    //   <ul>
-    //     {cart.map((item) => (
-    //       <li key={item.product.id}>
-    //         Sản phẩm: {item.product.productName} Số lượng: {item.quantity}
-    //       </li>
-    //     ))}
-    //   </ul>
-    //   <button
-    //     onClick={() => {
-    //       setIsConfirming();
-    //     }}
-    //   >
-    //     Confirm Order
-    //   </button>
-    // </div>
-
     // ===================
     <div class="containerFormCheckOut">
-      <div class="cardFormCheckOut cartFormCheckOut">
-        <div class="titleFormCheckOut">
-          <label>XÁC NHẬN ĐƠN HÀNG</label>
-          <button
-            className="closeBtn"
-            onClick={() => {
-              setPopupVisible(false);
+      <div class="plan">
+        <div class="inner">
+          <span
+            class="pricing"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              fontSize: "14px", // Điều chỉnh kích thước chữ
             }}
           >
-            {" "}
-            X
-          </button>
-        </div>
-        <div class="stepsFormCheckOut">
-          <div class="stepFormCheckOut">
-            <div>
-              <span className="spanConFirmOrder">Tên khách hàng</span>
-              <p>
-                {user.firstName} {user.lastName}
-              </p>
-            </div>
-            <div>
-              <span className="spanConFirmOrder">Địa chỉ giao hàng</span>
-              <p>{user.address}</p>
-            </div>
-            <div>
-              <span className="spanConFirmOrder">Số điện thoại nhận hàng</span>
-              <p>{user.phone}</p>
-            </div>
-
-            <div>
-              <span className="spanConFirmOrder">Phương thức thanh toán</span>
-              <p>Thanh toán khi nhận hàng</p>
-            </div>
-            {/* <hr /> */}
-
-            <span className="spanConFirmOrder">Chi tiết đơn hàng</span>
-            <div class="item">
+            <span style={{ color: "red" }}>
+              {total.toFixed(2)} vnd/
               {cart.map((item) => (
-                <div key={item.product.id}>
-                  <p>
-                    <strong style={{ marginRight: "3em" }}>
-                      {item.product.productName}
-                    </strong>
-                    Số lượng: <strong> {item.quantity}</strong>
-                  </p>{" "}
+                <div
+                  key={item.productId}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    marginBottom: "0.5em",
+                    marginRight: "1em",
+                  }}
+                >
+                  <p
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      marginBottom: "0.5em",
+                      marginRight: "0.5em",
+                      fontSize: "14px",
+                      color: "red", // Điều chỉnh kích thước chữ
+                    }}
+                  >
+                    <strong style={{ color: "red" }}>
+                      {" "}
+                      {item.quantity} sản phẩm
+                    </strong>{" "}
+                    {/* Ngắn gọn hơn */}
+                  </p>
                 </div>
               ))}
-            </div>
+            </span>
+          </span>
 
-            {/* <hr /> */}
-            <div class="paymentsFormCheckOut">
-              {/* <span className="spanConFirmOrder">Số tiền Cần thanh toán</span> */}
-              <div class="details">
-                {/* <span className="spanConFirmOrder">Subtotal:</span> */}
-                {/* <span className="spanConFirmOrder">{total} vnd</span> */}
-                {/* <span className="spanConFirmOrder">Shipping:</span>
-                <span className="spanConFirmOrder">$10.00</span>
-                <span className="spanConFirmOrder">Tax:</span>
-                <span className="spanConFirmOrder">$30.40</span> */}
+          <p class="title">Hóa đơn của bạn</p>
+          <p class="info" style={{ fontStyle: "italic" }}>
+            Chúc bạn có một trải nghiệm tuyệt vời với sản phẩm của chúng tôi!
+          </p>
+          <ul class="features">
+            <li>
+              <span class="icon">
+                <svg
+                  height="24"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"
+                  ></path>
+                </svg>
+              </span>
+              <span style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "1em", verticalAlign: "middle" }}>
+                  <span className="spanConFirmOrder">
+                    <strong>Tên khách hàng:</strong>
+                  </span>
+                </div>
+                <div style={{ verticalAlign: "middle" }}>
+                  <p style={{ margin: 0 }}>
+                    {user.firstName} {user.lastName}
+                  </p>
+                </div>
+              </span>
+            </li>
+
+            <li>
+              <span class="icon">
+                <svg
+                  height="24"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"
+                  ></path>
+                </svg>
+              </span>
+              <span style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "1em", verticalAlign: "middle" }}>
+                  <span className="spanConFirmOrder">
+                    <strong>Địa chỉ giao hàng:</strong>
+                  </span>
+                </div>
+                <div style={{ verticalAlign: "middle" }}>
+                  <p style={{ margin: 0 }}>
+                    {user.street} {user.city}
+                  </p>
+                </div>
+              </span>
+            </li>
+            <li>
+              <span class="icon">
+                <svg
+                  height="24"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"
+                  ></path>
+                </svg>
+              </span>
+              <span style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "1em", verticalAlign: "middle" }}>
+                  <span className="spanConFirmOrder">
+                    <strong>Số điện thoại :</strong>
+                  </span>
+                </div>
+                <div style={{ verticalAlign: "middle" }}>
+                  <p style={{ margin: 0 }}>{user.phone}</p>
+                </div>
+              </span>
+            </li>
+
+            <li>
+              <span class="icon">
+                <svg
+                  height="24"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"
+                  ></path>
+                </svg>
+              </span>
+              <span style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "1em", verticalAlign: "middle" }}>
+                  <span className="spanConFirmOrder">
+                    <strong>Phương thức thanh toán:</strong>
+                  </span>
+                </div>
+                <div style={{ verticalAlign: "middle" }}>
+                  <p style={{ margin: 0 }}>Thanh toán khi nhận hàng nha!!!</p>
+                </div>
+              </span>
+            </li>
+
+            <li style={{ display: "flex", alignItems: "center" }}>
+              <span class="icon">
+                <svg
+                  height="24"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"
+                  ></path>
+                </svg>
+              </span>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <span
+                  className="spanConFirmOrder"
+                  style={{ marginRight: "1em" }}
+                >
+                  <strong>Chi tiết đơn hàng:</strong>
+                </span>
+                <div
+                  className="item"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {cart.map((item) => (
+                    <div
+                      key={item.productId}
+                      style={{ marginRight: "1em", marginTop: 10 }}
+                    >
+                      <p style={{ marginBottom: "0.5em" }}>
+                        {item.productName}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="cardFormCheckOut checkout">
-          <div class="footer">
-            <label class="titleFormCheckOut">
-              Tổng số tiền cần thanh toán : {total.toFixed(2)} vnd
-            </label>
-
-            <button
-              class="checkout-btn"
-              onClick={() => {
-                handleConfirm();
-              }}
-            >
-              Checkout
-            </button>
+            </li>
+          </ul>
+          <div
+            class="action"
+            onClick={() => {
+              handleConfirm();
+            }}
+          >
+            <a class="button" href="#">
+              Xác nhận
+            </a>
           </div>
         </div>
       </div>

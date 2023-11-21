@@ -1,13 +1,13 @@
 import "../styles/Nav.scss";
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logo2.png";
 import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
 
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Nav = () => {
-  const { isLoggedIn, searchInput, setSearchInput } = useAuth(); // Sử dụng useAuth để lấy trạng thái đăng nhập
+  const { isLoggedIn, searchInput, setSearchInput } = useAuth();
   const history = useHistory();
   // xử lý tìm kiếm
 
@@ -17,14 +17,6 @@ const Nav = () => {
     console.log("value in nav", searchValue);
     history.push("/Shopping", { searchValue });
   };
-  // const handleCheckOut = () => {
-  //   const listCheckout = cart
-  //     .filter((item) => selectedItems[item.id])
-  //     .map((item) => item.id);
-
-  //   history.push("/Checkout", { listCheckout });
-  // };
-  // =========
   const [user, setUser] = useState(null);
   useEffect(() => {
     const data = localStorage.getItem("data");
@@ -64,17 +56,17 @@ const Nav = () => {
           {/* <div className="ms-auto d-none d-lg-block "> */}
           <div className=" d-none d-lg-block ">
             <div className="input-group searchContainer">
-              <span className="border-primary input-group-text bg-primary text-black">
+              <span className=" input-group-text bg-light text-black">
                 <i className="fas fa-search"></i>
               </span>
               <input
                 type="text"
                 value={searchInput}
-                className="form-control border-primary"
+                className="form-control"
                 onChange={(e) => setSearchInput(e.target.value)}
               />
               <button
-                className="btn btn-primary text-white"
+                className="btn btn-danger text-white"
                 onClick={() => search()}
               >
                 Tìm kiếm

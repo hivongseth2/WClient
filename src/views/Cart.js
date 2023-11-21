@@ -22,28 +22,27 @@ const Cart = () => {
     if (cart.length > 0) {
       setTotal(
         cart.reduce((total, item) => {
-          return total + item.quantity * item.product.price;
+          return total + item.quantity * item.price;
         }, 0)
       );
     }
   }, [cart]);
 
-  useEffect(() => {
-    if (datatemp) {
-      const parsedData = JSON.parse(datatemp);
-      setDataUser(parsedData);
+  // useEffect(() => {
+  //   if (datatemp) {
+  //     const parsedData = JSON.parse(datatemp);
+  //     setDataUser(parsedData);
 
-      if (parsedData && parsedData.shoppingCart && parsedData.shoppingCart.id) {
-        setCartId(parsedData.shoppingCart.id);
-      }
-    }
-  }, [datatemp]);
+  //     console.log(datatemp + "user");
+  //     if (parsedData && parsedData.shoppingCart && parsedData.shoppingCart.id) {
+  //       setCartId(parsedData.shoppingCart.id);
+  //     }
+  //   }
+  // }, [datatemp]);
 
   useEffect(() => {
-    if (CartId) {
-      fetchData();
-    }
-  }, [CartId]);
+    fetchData();
+  }, []);
 
   const updateCart = async () => {
     try {
@@ -64,15 +63,16 @@ const Cart = () => {
   }, [cart]);
 
   const fetchData = async () => {
+    const user = JSON.parse(datatemp);
     try {
       const response = await fetch(
-        `http://localhost:8521/api/v1/shoppingCarts/getById/${CartId}`
+        `http://localhost:8081/cart/getCartItems?customerId=${user.personId}`
       );
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.shoppingCartDetails);
-        setCart(data.shoppingCartDetails);
+
+        setCart(data);
       } else {
         console.log("errrrrrrrrrrrrrrrr");
       }
@@ -98,8 +98,8 @@ const Cart = () => {
       // Tính tổng tiền dựa trên selectedItems và cập nhật quantity
       const { updatedTotal, updatedQuantity } = cart.reduce(
         (acc, item) => {
-          if (selectedItems[item.id]) {
-            acc.updatedTotal += item.quantity * item.product.price;
+          if (selectedItems[item.cartDetailId]) {
+            acc.updatedTotal += item.quantity * item.price;
             acc.updatedQuantity += item.quantity;
           }
           return acc;
@@ -123,28 +123,34 @@ const Cart = () => {
 
   const handleCheckOut = () => {
     const listCheckout = cart
-      .filter((item) => selectedItems[item.id])
-      .map((item) => item.id);
+      .filter((item) => selectedItems[item.cartDetailId])
+      .map((item) => item);
 
     history.push("/Checkout", { listCheckout });
   };
 
   return (
-    <section className="h-100 gradient-custom">
-      <div className="container-xxl py-5">
-        <div className="row container-lg">
-          <div className="col-md-8">
+    <section
+      className="h-100 gradient-custom mt-12"
+      style={{ backgroundColor: "white", marginTop: "30px" }}
+    >
+      <div className="container-xxl py-12 mt-12">
+        <div className="row container-fluid">
+          <div className="col-md-12">
             <div
-              className="card mb-4 item"
-              style={{ width: "45em", maxWidth: "50em" }}
+              className="card mb-12 item"
+              // style={{ width: "45em", maxWidth: "50em" }}
             >
               <div className="card-header">
                 <h5 className="mb-0"> {cart.length} mặt hàng</h5>
               </div>
 
-              <div className="card-body">
-                {dataUser ? (
+              <div className="card-body" style={{ backgroundColor: "white" }}>
+                {datatemp ? (
                   cart.map((item, index) => {
+                    {
+                      console.log(item.productId);
+                    }
                     return item.quantity !== 0 ? (
                       <CartItem
                         item={item}
@@ -152,9 +158,12 @@ const Cart = () => {
                         token={accessToken}
                         setCart={setCart}
                         updateCart={updateCart}
-                        selected={selectedItems[item.id] || false}
+                        selected={selectedItems[item.cartDetailId] || false}
                         onSelect={() =>
-                          handleSelectItem(item.id, !selectedItems[item.id])
+                          handleSelectItem(
+                            item.cartDetailId,
+                            !selectedItems[item.cartDetailId]
+                          )
                         }
                       />
                     ) : null;
@@ -162,63 +171,57 @@ const Cart = () => {
                 ) : (
                   <div>Bạn chưa đăng nhập</div>
                 )}
-              </div>
-            </div>
-          </div>
-          {/* ============================= Total */}
-          <div className="col-md-4">
-            <div
-              className="card mb-4 "
-              style={{ width: "25em", maxWidth: "25em" }}
-            >
-              <div className="card-header py-3">
-                <h5 className="mb-0">
-                  Tổng kết{" "}
-                  <span className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                    {selectedItemCount} mặt hàng đã chọn
-                  </span>
-                </h5>
-              </div>
-              <div className="card-body">
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                    Tổng tiền
-                    <span>{`${total.toFixed(2)} VND`}</span>
-                    <span className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                      {quantity}
-                    </span>
-                  </li>
-                  <li className="list-group-item d-flex justify-content-between align-items-center px-0">
-                    {/* Shipping */}
-                    <span></span>
-                  </li>
-                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                    <div>
-                      <strong>Tổng số tiền</strong>
-                      <strong>
-                        <p className="mb-0">(Đã bao gồm VAT)</p>
-                      </strong>
-                    </div>
-                    <span>
-                      <strong>{`${total.toFixed(2)} VND`}</strong>
-                    </span>
-                  </li>
-                  <strong>Thời gian giao hàng dự kiến</strong>
-                  <p className="mb-5">3 ngày từ khi đặt hàng thành công</p>
-                </ul>
 
-                <button
-                  type="button"
-                  className="btn btn-primary btn-lg btn-block"
-                  onClick={() => handleCheckOut()}
-                >
-                  Tiến hành thanh toán
-                </button>
+                <div className="card-header py-3">
+                  {/* Tổng kết{" "} */}
+                  <h2 className="list-group-item d-flex justify-content-between align-items-center ">
+                    {selectedItemCount} mặt hàng đã chọn
+                  </h2>
+                </div>
+                <div className="card-body">
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item d-flex justify-content-between align-items-center ">
+                      Tổng tiền
+                      <span>{`${total.toFixed(2)} VND`}</span>
+                      <span className="list-group-item d-flex justify-content-between align-items-center ">
+                        {quantity}
+                      </span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                      {/* Shipping */}
+                      <span></span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 ">
+                      <div>
+                        <strong>Tổng số tiền</strong>
+                        <strong>
+                          <p className="mb-0">(Đã bao gồm VAT)</p>
+                        </strong>
+                      </div>
+                      <span>
+                        <strong>{`${total.toFixed(2)} VND`}</strong>
+                      </span>
+                    </li>
+                    <strong>Thời gian giao hàng dự kiến</strong>
+                    <p className="mb-5">3 ngày từ khi đặt hàng thành công</p>
+                  </ul>
+
+                  <button
+                    type="button "
+                    className="btn btn-primary btn-lg  btn-block"
+                    onClick={() => handleCheckOut()}
+                  >
+                    Tiến hành thanh toán
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {/* ============================= Total */}
+
+      {/* </div> */}
     </section>
   );
 };

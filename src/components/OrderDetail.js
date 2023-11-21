@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import "../styles/OrderDetail.scss";
 import OrderTracking from "./OrderTracking";
 import { useLocation } from "react-router-dom";
-
+import "../styles/Butoon30.scss"
 const OrderDetail = ({}) => {
-  function calculateTotal(orderDetails) {
-    return orderDetails.reduce((total, orderDetail) => {
-      const productTotal = orderDetail.quantity * orderDetail.product.price;
+  function calculateTotal(order) {
+    return order.orderDetails.reduce((total, orderDetail) => {
+      const productTotal = orderDetail.quantity * orderDetail.price;
       return total + productTotal;
     }, 0);
   }
@@ -15,13 +15,25 @@ const OrderDetail = ({}) => {
   const order = location.state.orderData;
   useEffect(() => {
     console.log(order);
+    console.log(order.status);
   }, []);
   console.log(order);
+  function getStatusText(orderId) {
+    switch (orderId) {
+      case "1":
+        return "Đang xử lý";
+      case "2":
+        return "Đang được vận chuyển";
+      default:
+        return "Trạng thái không xác định";
+    }
+  }
+
 
   return (
     <div className="container-xxl DetailContainer">
       <div className="h-container" style={{ justifyContent: "space-around" }}>
-        <div style={{ fontSize: "25px" }}>CHI TIẾT ĐƠN HÀNG {order.id}</div>
+        <div style={{ fontSize: "25px" }}>CHI TIẾT ĐƠN HÀNG {order.orderId}</div>
       </div>
       {/* ===============================khách hàng =============================== */}
       <div
@@ -36,80 +48,64 @@ const OrderDetail = ({}) => {
       </div>
 
       <div className="h-container">
-        <div> Mã khách hàng : {order.customer.id}</div>
+        <div> Mã khách hàng : {order.customerId}</div>
         <div>
-          Họ tên : {order.customer.lastName} {order.customer.firstName}
+          Họ tên : {order.firstName} {order.lastName}
         </div>
       </div>
       <div className="h-container">
-        <div>Địa chỉ nhận hàng : {order.customer.address}</div>
-        <div> Số điện thoại : {order.customer.phone}</div>
+        <div>Địa chỉ nhận hàng : {order.address}</div>
+        <div> Số điện thoại : {order.customerPhoneNumber}</div>
       </div>
 
       {/* ==================NHÂN VIÊN=================================== */}
       <hr />
 
-      {order.employee ? (
-        <>
-          <div className="h-container">Thông tin nhân viên</div>
-          <div className="h-container">
-            <div> Mã nhân viên : {order.employee.id}</div>
-            <div>
-              Họ tên : {order.employee.lastName} {order.employee.firstName}
-            </div>
-          </div>
-          <div className="h-container">
-            <div> Số điện thoại : {order.employee.phone}</div>
-          </div>
-        </>
-      ) : (
-        <></>
-      )}
-
-      <OrderTracking orderStatus={order.statusOrder} />
+      <OrderTracking orderStatus={order.status} />
 
       {/* ===============================ĐƠN HÀNG =============================== */}
-      <div key={order.id} className="order-item">
+      <div key={order.orderId} className="order-item">
         <div className="headerOrder">
           <div className="h-container">
-            <span style={{ marginLeft: "2em", color: "#9DB2BF" }}>
+            <span style={{ marginLeft: "2em", color: "#fff" }}>
               Ngày tạo đơn:{" "}
-              <span style={{ color: "#9DB2BF" }}>
-                {new Date(order.date).toLocaleDateString()}
+              <span style={{ color: "#fff" }}>
+                {new Date(order.orderDate).toLocaleDateString()}
               </span>
             </span>
-            <span style={{ color: "#F0F0F0" }}>
-              Trạng thái: {order.statusOrder}
+            <span style={{ color: "#fff" }}>
+            Trạng thái: {getStatusText(order.status)}
             </span>
           </div>
           <div className="h-container">
-            <span style={{ color: "#DDE6ED", marginLeft: "2em" }}>
+            <span style={{ color: "#fff", marginLeft: "2em" }}>
+              Mã đơn hàng
               {" "}
-              {order.id}
+              {order.orderId}
             </span>
-            <span style={{ color: "#9DB2BF" }}>Thanh toán khi nhận hàng</span>
+            <span style={{ color: "#fff" }}>Thanh toán khi nhận hàng</span>
           </div>
         </div>
         {order.orderDetails.map((orderDetail) => (
           <div className="orderItemContainer">
             <span className="h-container" style={{ color: "#176B87" }}>
-              {orderDetail.product.productName}
+              {orderDetail.productName}
               <span style={{ marginInline: "1em" }}>
                 x{orderDetail.quantity}
               </span>
             </span>
-            <div key={orderDetail.id} className="h-container orderDetails">
+            <div key={orderDetail.orderDetailId} className="h-container orderDetails">
               <img
                 className="imgOrderDetail"
                 src={
-                  orderDetail.product.imageProducts.length > 0
-                    ? orderDetail.product.imageProducts[0].imageLink
+                  orderDetail.productImages.length > 0
+                    ? orderDetail.productImages[0]
                     : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-32.png"
                 }
                 alt="Product"
               />
               <span className="totalOrder" style={{ color: "#176B87" }}>
-                {orderDetail.quantity * orderDetail.product.price} VND
+                {orderDetail.quantity * orderDetail.price} VND
               </span>
             </div>
           </div>
@@ -119,14 +115,14 @@ const OrderDetail = ({}) => {
             className="h-container mx-4"
             style={{ justifyContent: "right", color: "#E74646" }}
           >
-            Tổng tiền: {calculateTotal(order.orderDetails).toFixed(2)} VND
+            Tổng tiền: {calculateTotal(order).toFixed(2)} VND
           </div>
           <div
             className="h-container px-2"
             style={{ justifyContent: "right", paddingBottom: "1em" }}
           >
             {/* <button onClick={() => cancelOrder(order.id)}>Hủy đơn hàng</button> */}
-            <button className="btn btn-danger">Hủy đơn hàng</button>
+            <button className="button-30-red">Hủy đơn hàng</button>
           </div>
         </div>
       </div>
