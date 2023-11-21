@@ -20,16 +20,16 @@
     align-items: center;
     // text-align: center;
     img{
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
     }
 
 }
 .headerOrder
 {
     border-radius: 2px;
-    background-color: #164B60;
-    color: #EEEEEE;
+    background-color: #4eaf9b;
+    color: #fff;
     margin-left: -10px;
     padding-right: 10px;
     margin-right: -10px;
@@ -38,7 +38,7 @@
 
 .footerOrder
 {
-    background-color: #164B60;
+    background-color: #4eaf9b;
     margin-left: -10px;
     padding-right: 10px;
     margin-right: -10px;
@@ -69,4 +69,5 @@
     margin: 10px 0; /* Thêm khoảng cách giữa các đơn hàng */
     padding: 10px 10px 0px 10px; /* Thêm padding cho đơn hàng */
     border: 1px solid #ccc; /* Thêm viền */
+    background-color: #fff;
     }

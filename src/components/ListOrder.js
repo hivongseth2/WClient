@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "../styles/Order.scss";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import OrderDetail from "./OrderDetail";
+import "../styles/Butoon30.scss"
 import { toast } from "react-toastify";
 const ListOrder = () => {
   const [listOrder, setListOrder] = useState([]);
@@ -68,56 +69,83 @@ const ListOrder = () => {
     }, 0);
   }
 
+  function getStatusText(orderId) {
+    switch (orderId) {
+      case "1":
+        return "Đang xử lý";
+      case "2":
+        return "Đang được vận chuyển";
+      default:
+        return "Trạng thái không xác định";
+    }
+  }
+  const [showDetails, setShowDetails] = useState(false);
+
+  const toggleDetails = () => {
+    setShowDetails(!showDetails);
+  };
+
   return (
     <div className="container-xxl ">
       {listOrder.map((order) => (
         <div key={order.id} className="order-item">
           <div className="headerOrder">
             <div className="h-container">
-              <span style={{ marginLeft: "2em", color: "#9DB2BF" }}>
+              <span style={{ marginLeft: "2em", color: "#fff" }}>
                 Ngày tạo đơn:{" "}
-                <span style={{ color: "#9DB2BF" }}>
+                <span style={{ color: "#fff" }}>
                   {new Date(order.orderDate).toLocaleDateString()}
                 </span>
               </span>
-              <span style={{ color: "#9DB2BF" }}>
-                Trạng thái: null
+              <span style={{ color: "#fff" }}>
+                Trạng thái: {getStatusText(order.status)}
               </span>
+
             </div>
             <div className="h-container">
-              <span style={{ color: "#DDE6ED", marginLeft: "2em" }}>
+              <span style={{ color: "#fff", marginLeft: "2em" }}>
                 {" "}
-                {order.orderId}
+                Mã đơn hàng {order.orderId}
               </span>
-              <span style={{ color: "#9DB2BF" }}>Thanh toán khi nhận hàng</span>
+              <span style={{ color: "#fff" }}>Thanh toán khi nhận hàng</span>
             </div>
           </div>
-          {order.orderDetails.map((orderDetail) => (
-            <div className="orderItemContainer">
-              <span className="h-container" style={{ color: "#176B87" }}>
-                {orderDetail.productName}
-                <span style={{ marginInline: "1em" }}>
-                  x{orderDetail.quantity}
-                </span>
-              </span>
-              <div className="h-container orderDetails">
-                <img
-                  src={
-                    orderDetail.productImages.length > 0
-                      ? orderDetail.productImages[0]
-                      : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-32.png"
-                  }
-                  alt="Product"
-                />
-                <span className="totalOrder" style={{ color: "#176B87" }}>
-                  {orderDetail.quantity * orderDetail.price} VND
-                </span>
-              </div>
+
+          {showDetails && (
+            <div>
+              {order.orderDetails.map((orderDetail) => (
+
+                <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                  <div class="media-body order-2 order-lg-1">
+                    <h5 class="mt-0 font-weight-bold mb-2">Sản phẩm {orderDetail.productName}</h5>
+                    <div class="d-flex align-items-center justify-content-between mt-1">
+                      <h6 class="font-weight-bold my-2">Giá {orderDetail.quantity * orderDetail.price} $</h6>
+                      <ul class="list-inline small">
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="h-container orderDetails">
+                    <img
+                      src={
+                        orderDetail.productImages.length > 0
+                          ? orderDetail.productImages[0]
+                          : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-32.png"
+                      }
+                      alt="Product"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
           <div className="footerOrder">
             <div
-              className="h-container mx-4"
+              className="h-container"
               style={{ justifyContent: "right", color: "#E74646" }}
             >
               Tổng tiền: {calculateTotal(order).toFixed(2)} VND
@@ -126,8 +154,17 @@ const ListOrder = () => {
               className="h-container px-2"
               style={{ justifyContent: "right", paddingBottom: "1em" }}
             >
+              {order.orderDetails.length > 1 && (
+                <button
+                  type="button"
+                  className="button-30"
+                  onClick={toggleDetails}
+                >
+                  {showDetails ? "Ẩn chi tiết" : "Xem thêm"}
+                </button>
+              )}
               <button
-                className="btn btn-danger"
+                className="button-30"
                 onClick={() => cancelOrder(order)}
               >
                 {order.status === "0" ? 'Đã hủy' : 'Hủy đơn hàng'}
@@ -135,7 +172,7 @@ const ListOrder = () => {
 
               {/* <button className="btn btn-danger">Hủy đơn hàng</button> */}
               <button
-                className="btn btn-light mx-2"
+                className="button-30"
                 onClick={() => {
                   //   handleShowOrderDetail(order);
                   handleViewOrderDetail(order);
