@@ -3,10 +3,10 @@ import { CustomFetch } from "../utils/CustomFetch";
 import { toast } from "react-toastify";
 import axios from "axios";
 import "../styles/Personal.scss";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
+
 
 import FormatDate2Input from "../utils/FormatDate2Input";
-import { useHistory } from "react-router-dom";
 import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
 import OrderDetail from "../components/OrderDetail";
 import { useEffect, useState, useContext, createContext } from "react";
@@ -27,6 +27,73 @@ const Personal = () => {
   const [id, setId] = useState("");
   const [account, setAccount] = useState();
   const { setIsLoggedIn } = useAuth();
+  const [pass, setPass] = useState("");
+
+  const [isSetPassword, setIsSetPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [reNewPassword, setReNewPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  //   ================================
+
+  useEffect(() => {
+    const temp = JSON.parse(localStorage.getItem("data"));
+    setUser(temp);
+    if (temp) {
+      // Nếu có dữ liệu từ người dùng đã có
+      setEmail(temp.email || "");
+      setFirstName(temp.firstName || "");
+      setLastName(temp.lastName || "");
+      setcity(temp.city || "");
+      setstreet(temp.street || "");
+      setSex(String(temp.sex) || "0");
+      console.log(temp.sex);
+      setPhone(temp.phone || "");
+      setAccount(temp.account);
+      setId(temp.personId);
+      setPass(temp.passWord);
+    }
+    console.log(id);
+  }, [flag]);
+
+  const handleUpdatePassword = async (passwordParam, id) => {
+    if (passwordParam !== password) {
+      setErrorMessage("Mật khẩu cũ không đúng");
+      return;
+    }
+
+    if (newPassword !== reNewPassword) {
+      setErrorMessage("Mật khẩu nhập lại không khớp");
+      return;
+    }
+
+    // Gọi API để cập nhật mật khẩu
+    try {
+      const response = await fetch(`http://localhost:8081/account/update-password/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password: newPassword,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Mật khẩu đã được cập nhật thành công");
+        setErrorMessage("");
+        history.push('/Login');
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || "Có lỗi xảy ra khi cập nhật mật khẩu");
+      }
+    } catch (error) {
+      console.error("Lỗi khi gọi API cập nhật mật khẩu", error);
+      setErrorMessage("Có lỗi xảy ra khi cập nhật mật khẩu");
+    }
+  };
+
 
   // ==========================================
 
@@ -34,7 +101,6 @@ const Personal = () => {
     localStorage.removeItem("data");
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-
     history.push("/login");
   };
   //   ======
@@ -69,75 +135,59 @@ const Personal = () => {
   };
   //   ===================================
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    console.log("id dòng 139 nè: ", id);
     event.preventDefault();
-
     const customerData = {
-      id: id,
+      status: 1,
       firstName,
       lastName,
       email,
-      dateOfBirth: city,
-      sex: parseInt(sex),
+      city,
       phone,
       street,
-      account,
-      customerType: "customer",
-      avatar: null,
     };
-
-    console.log(customerData);
-    axios
-      .post(
-        "http://localhost:8521/api/v1/customer/createOrUpdate",
-        customerData
-      )
-      .then((response) => {
-        // Xử lý khi tạo khách hàng thành công
-        console.log("Khách hàng đã được tạo:", response.data);
-        localStorage.setItem("data", JSON.stringify(response.data));
-        setFlag(!flag);
-
-        toast.success(`Cập nhật thành công`);
-      })
-      .catch((error) => {
-        // Xử lý khi có lỗi xảy ra
-        toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
-
-        console.log(error);
+    console.log("đây là data dòng 150", JSON.stringify(customerData));
+    try {
+      const response = await fetch(`http://localhost:8081/customer/update/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(customerData),
       });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Khách hàng đã được cập nhật:", responseData);
+        localStorage.setItem("data", JSON.stringify(responseData));
+        toast.success(`Cập nhật thành công`);
+      } else {
+        toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
+        console.log(response.statusText);
+      }
+    } catch (error) {
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
+      console.log(error);
+    }
   };
 
   //   ===========================
 
-  useEffect(() => {
-    const temp = JSON.parse(localStorage.getItem("data"));
-    setUser(temp);
-    if (temp) {
-      // Nếu có dữ liệu từ người dùng đã có
-      setEmail(temp.email || "");
-      setFirstName(temp.firstName || "");
-      setLastName(temp.lastName || "");
-      setcity(temp.city || "");
-      setstreet(temp.street || "");
-      setSex(String(temp.sex) || "0");
-      console.log(temp.sex);
-      setPhone(temp.phone || "");
-      setAccount(temp.account);
-      setId(temp.id);
-    }
-    console.log(city);
-  }, [flag]);
+
   //   ========
   return (
     <>
       <div className="containerPerson">
         <div className="containerChild ">
-          <div className="row">
+          <div className="row justify-content-center align-items-center">
             <div className="col-12">
-              <h3>Hồ Sơ Của Tôi</h3>
+              <div className="d-flex justify-content-center align-items-center">
+                <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png" alt="My Image" style={{ width: '260px', height: '200px' }} />
+              </div>
             </div>
           </div>
+
           <div className="row">
             <div className="col-6">
               <div className="item">
@@ -224,6 +274,7 @@ const Personal = () => {
                   className="form-control"
                   onChange={handleChange}
                   required
+                  readOnly
                 />
               </div>
             </div>
@@ -232,7 +283,7 @@ const Personal = () => {
             <div className="col-6">
               <div className="item">
                 <label htmlFor="city" className="lbInput">
-                 Thành phố:
+                  Thành phố:
                 </label>
                 <input
                   type="text"
@@ -245,48 +296,92 @@ const Personal = () => {
                 />
               </div>
             </div>
+            <div className="col-6">
+
+            </div>
 
           </div>
 
           <div className="row">
-            <div className="col-12 pt-xl-3">
-              <div className="item">
-                <button
-                  className="submitBtn btn btn-primary"
-                  type="submit"
-                  onClick={(e) => handleSubmit(e)}
-                >
-                  cập nhật
-                </button>
+            <div className="col-6 pt-xl-3">
+              <div className="col">
+                <div className="item">
+                  <button
+                    className="button-30-blue"
+                    type="submit"
+                    onClick={() => setIsSetPassword(!isSetPassword)}
+                  >
+                    Đổi mật khẩu
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="col-6 pt-xl-3">
+              <div className="row">
+                <div className="col">
+                  <div className="item">
+                    <button
+                      className="button-30-pr"
+                      type="submit"
+                      onClick={(e) => handleSubmit(e)}
+                    >
+                      Cập nhật
+                    </button>
+                  </div>
+                </div>
+                <div className="col">
+                  <div className="ContainerOut">
+                    <button
+                      type="button"
+                      className="button-30-red"
+                      onClick={() => SignOut()}
+                    >
+                      Đăng xuất
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="ContainerAvatar">
-          <img
-            className="imgItem"
-            src={
-              user && user.avatar
-                ? user.avatar.imageLink
-                : "https://lagrotteduyeti.com/wp-content/themes/themify-music/themify/img/non-skin.gif"
-            }
-            alt="Avatar"
-          />
-          <div className="btnAvatar">
-            <button type="button" class="btn btn-secondary">
-              Chọn ảnh
-            </button>
-          </div>
-        </div>
-
-        <div className="ContainerOut">
-          <button
-            type="button"
-            class="btn btn-danger"
-            onClick={() => SignOut()}
-          >
-            Đăng xuất
-          </button>
+          {isSetPassword && (
+            <form className="mt-3">
+              <div className="mb-3">
+                <label htmlFor="newPassword" className="form-label">Mật khẩu cũ:</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="pass"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="newPassword" className="form-label">Mật khẩu mới:</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="newPassword"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="reNewPassword" className="form-label">Nhập lại mật khẩu mới:</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="reNewPassword"
+                  value={reNewPassword}
+                  onChange={(e) => setReNewPassword(e.target.value)}
+                />
+              </div>
+              {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+              <button
+                type="button"
+                className="button-30-pr"
+                onClick={() => handleUpdatePassword(pass, id)} >Xác nhận</button>
+            </form>
+          )}
         </div>
       </div>
 

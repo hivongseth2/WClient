@@ -87,29 +87,32 @@ const OrderDetail = ({}) => {
           </div>
         </div>
         {order.orderDetails.map((orderDetail) => (
-          <div className="orderItemContainer">
-            <span className="h-container" style={{ color: "#176B87" }}>
-              {orderDetail.productName}
-              <span style={{ marginInline: "1em" }}>
-                x{orderDetail.quantity}
-              </span>
-            </span>
-            <div key={orderDetail.orderDetailId} className="h-container orderDetails">
-              <img
-                className="imgOrderDetail"
-                src={
-                  orderDetail.productImages.length > 0
-                    ? orderDetail.productImages[0]
-                    : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-32.png"
-                }
-                alt="Product"
-              />
-              <span className="totalOrder" style={{ color: "#176B87" }}>
-                {orderDetail.quantity * orderDetail.price} VND
-              </span>
-            </div>
-          </div>
-        ))}
+                <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                  <div class="media-body order-2 order-lg-1">
+                    <h5 class="mt-0 font-weight-bold mb-2">Sản phẩm {orderDetail.productName}</h5>
+                    <div class="d-flex align-items-center justify-content-between mt-1">
+                      <h6 class="font-weight-bold my-2">Giá {orderDetail.quantity * orderDetail.price} $</h6>
+                      <ul class="list-inline small">
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="h-container orderDetails">
+                    <img
+                      src={
+                        orderDetail.productImages.length > 0
+                          ? orderDetail.productImages[0]
+                          : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-32.png"
+                      }
+                      alt="Product"
+                    />
+                  </div>
+                </div>
+              ))}
         <div className="footerOrder">
           <div
             className="h-container mx-4"
@@ -122,7 +125,7 @@ const OrderDetail = ({}) => {
             style={{ justifyContent: "right", paddingBottom: "1em" }}
           >
             {/* <button onClick={() => cancelOrder(order.id)}>Hủy đơn hàng</button> */}
-            <button className="button-30-red">Hủy đơn hàng</button>
+            <button className="button-30-red">{order.status === "0" ? 'Đã hủy' : 'Hủy đơn hàng'}</button>
           </div>
         </div>
       </div>
