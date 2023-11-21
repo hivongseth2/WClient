@@ -35,7 +35,7 @@ const ListItem = () => {
   }, []);
 
   return (
-    <section style={{ backgroundColor: "#eee" }}>
+    <section>
       <div className="container-fluid py-5 list-container">
         {" "}
         {/* Thêm class list-container */}

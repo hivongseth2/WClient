@@ -27,20 +27,39 @@
 .container-fluid {
     max-width: 1400px;
 
+    
+
 }
 
 .card {
-    background: #fff;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
-    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
-    border: 0;
-    border-radius: 1rem;
+    // background: #fff;
+    // box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    // transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+    // border: 0;
+    // border-radius: 1rem;
+
+/* From https://css.glass */
+/* From https://css.glass */
+
+
+border-radius: 33px;
+background: #e0e0e0;
+box-shadow:  34px 34px 82px #dddcdc,
+             -34px -34px 82px #ffffff;
 }
 
 .card-img,
 .card-img-top {
-    border-top-left-radius: calc(1rem - 1px);
-    border-top-right-radius: calc(1rem - 1px);
+    border-top-left-radius: calc(2rem - 1px);
+    border-top-right-radius: calc(2rem - 1px);
+
+    // border-radius: 0px;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow:  12px 12px 24px #e3e3e3,
+                 -12px -12px 24px #ffffff;
+
+
+
 }
 
 .button-custom {
@@ -74,7 +93,7 @@
     max-height: 250px;
     object-fit: contain;
     padding: 30px;
-    background-color: #ffffff;
+    background-color: #e0e0e0a2;
     
 }
 
@@ -278,3 +297,15 @@
     fill: white;
     transform: scale(1.2);
   } 
+
+  .body-card{
+    // border-radius: 25px;
+    border-radius: 0px;
+    background: #f0f3f1;
+    box-shadow: inset 0px -5px 10px #f1f3f2,
+                inset 0px 0px 0px rgb(236, 234, 234);
+                border-bottom-left-radius: 20px;
+                // border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+                
+  }

@@ -130,19 +130,22 @@ const Cart = () => {
   };
 
   return (
-    <section className="h-100 gradient-custom">
-      <div className="container-xxl py-5">
-        <div className="row container-lg">
-          <div className="col-md-8">
+    <section
+      className="h-100 gradient-custom mt-12"
+      style={{ backgroundColor: "white", marginTop: "30px" }}
+    >
+      <div className="container-xxl py-12 mt-12">
+        <div className="row container-fluid">
+          <div className="col-md-12">
             <div
-              className="card mb-4 item"
-              style={{ width: "45em", maxWidth: "50em" }}
+              className="card mb-12 item"
+              // style={{ width: "45em", maxWidth: "50em" }}
             >
               <div className="card-header">
                 <h5 className="mb-0"> {cart.length} mặt hàng</h5>
               </div>
 
-              <div className="card-body">
+              <div className="card-body" style={{ backgroundColor: "white" }}>
                 {datatemp ? (
                   cart.map((item, index) => {
                     {
@@ -168,63 +171,57 @@ const Cart = () => {
                 ) : (
                   <div>Bạn chưa đăng nhập</div>
                 )}
-              </div>
-            </div>
-          </div>
-          {/* ============================= Total */}
-          <div className="col-md-4">
-            <div
-              className="card mb-4 "
-              style={{ width: "25em", maxWidth: "25em" }}
-            >
-              <div className="card-header py-3">
-                <h5 className="mb-0">
-                  Tổng kết{" "}
-                  <span className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                    {selectedItemCount} mặt hàng đã chọn
-                  </span>
-                </h5>
-              </div>
-              <div className="card-body">
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                    Tổng tiền
-                    <span>{`${total.toFixed(2)} VND`}</span>
-                    <span className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                      {quantity}
-                    </span>
-                  </li>
-                  <li className="list-group-item d-flex justify-content-between align-items-center px-0">
-                    {/* Shipping */}
-                    <span></span>
-                  </li>
-                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                    <div>
-                      <strong>Tổng số tiền</strong>
-                      <strong>
-                        <p className="mb-0">(Đã bao gồm VAT)</p>
-                      </strong>
-                    </div>
-                    <span>
-                      <strong>{`${total.toFixed(2)} VND`}</strong>
-                    </span>
-                  </li>
-                  <strong>Thời gian giao hàng dự kiến</strong>
-                  <p className="mb-5">3 ngày từ khi đặt hàng thành công</p>
-                </ul>
 
-                <button
-                  type="button"
-                  className="btn btn-primary btn-lg btn-block"
-                  onClick={() => handleCheckOut()}
-                >
-                  Tiến hành thanh toán
-                </button>
+                <div className="card-header py-3">
+                  {/* Tổng kết{" "} */}
+                  <h2 className="list-group-item d-flex justify-content-between align-items-center ">
+                    {selectedItemCount} mặt hàng đã chọn
+                  </h2>
+                </div>
+                <div className="card-body">
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item d-flex justify-content-between align-items-center ">
+                      Tổng tiền
+                      <span>{`${total.toFixed(2)} VND`}</span>
+                      <span className="list-group-item d-flex justify-content-between align-items-center ">
+                        {quantity}
+                      </span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                      {/* Shipping */}
+                      <span></span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 ">
+                      <div>
+                        <strong>Tổng số tiền</strong>
+                        <strong>
+                          <p className="mb-0">(Đã bao gồm VAT)</p>
+                        </strong>
+                      </div>
+                      <span>
+                        <strong>{`${total.toFixed(2)} VND`}</strong>
+                      </span>
+                    </li>
+                    <strong>Thời gian giao hàng dự kiến</strong>
+                    <p className="mb-5">3 ngày từ khi đặt hàng thành công</p>
+                  </ul>
+
+                  <button
+                    type="button "
+                    className="btn btn-primary btn-lg  btn-block"
+                    onClick={() => handleCheckOut()}
+                  >
+                    Tiến hành thanh toán
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {/* ============================= Total */}
+
+      {/* </div> */}
     </section>
   );
 };

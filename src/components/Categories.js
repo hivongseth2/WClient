@@ -19,10 +19,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <div
-      className="container-fluid shadow-sm p-3 mb-5 rounded"
-      style={{ backgroundColor: "white" }}
-    >
+    <div className="container-fluid  p-3 mb-5 rounded">
       <div class="row mt-2 g-4">
         <div class="col-md-3">
           <div class="cardcate p-1 d-flex justify-content-center align-items-center">

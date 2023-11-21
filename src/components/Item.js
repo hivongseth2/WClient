@@ -101,10 +101,10 @@ const Item = (props) => {
               />
             </a>
 
-            <div class="card-body">
+            <div class="card-body body-card">
               <div class="text-center">
                 <p
-                  class="text-muted mb-2"
+                  class="text-muted mb-2 hightlight"
                   target="_blank"
                   onClick={() => handleView()}
                 >
